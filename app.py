@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,jsonify
 
 app = Flask(__name__)
 
@@ -8,5 +8,5 @@ def main():
 
 #add api calls here.start with '/api'
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == '__app__':
+    app.run(port=5000) 
