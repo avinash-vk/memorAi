@@ -64,10 +64,11 @@ class _LoginState extends State<Login> {
         ),
         SizedBox(height: 10,),
         RaisedButton(
+          color: Colors.yellow,
           onPressed: (){
-            Navigator.pushNamed(context,'BasicInfoReg');
+            Navigator.popAndPushNamed(context,'BasicInfoReg');
           },
-          child:Text('I\'m new',style:TextStyle(backgroundColor: Colors.yellow,color:Colors.black))
+          child:Text('I\'m new',style:TextStyle(color:Colors.black))
         )
       ],
       )

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
 
-class IdCard extends StatelessWidget {
+class Dashboard extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
@@ -14,7 +15,7 @@ class IdCard extends StatelessWidget {
           children: <Widget>[
             Center(
               child: CircleAvatar(
-                backgroundImage: AssetImage("https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"),
+                backgroundImage: NetworkImage("https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"),
                 radius: 40.0,
               ),
             ),

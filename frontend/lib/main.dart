@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/Dashboard.dart';
 import 'package:frontend/pages/ImageReg.dart';
 import 'package:frontend/pages/Login.dart';
 import 'package:frontend/pages/Home.dart';
@@ -8,7 +9,7 @@ import 'package:frontend/pages/locationReg.dart';
 void main(){ 
   runApp(
   MaterialApp(
-    initialRoute: 'ImageReg',
+    initialRoute: 'loginScreen',
     routes: {
       'loginScreen': (context) => Login(),
       'home' :(context) => Home(),
@@ -16,6 +17,7 @@ void main(){
       'BasicInfoReg':(context) => SignUp(),
       'ImageReg':(context) => ImageReg(),
       'LocationReg':(context) => LocationReg(),
+      'dashboard':(context) => Dashboard()
     }
   )
 );

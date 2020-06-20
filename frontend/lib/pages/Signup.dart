@@ -51,20 +51,27 @@ class _SignUpState extends State<SignUp> {
               
               Container(
                       padding: const EdgeInsets.only(left: 40.0, top: 20.0),
-                      child:RaisedButton(
+                      child:Column(
+                        children:<Widget>[
+                        RaisedButton(
                         child: const Text('Next'),
                         color:Colors.redAccent,
                         textColor: Colors.white,
-                        onPressed: (){},
-                      )),
-               RaisedButton(
-                onPressed: (){
-                  Navigator.pushNamed(context,'BasicInfoReg');
-                },
-                child:Text('I\'m not new',style:TextStyle(backgroundColor: Colors.yellow,color:Colors.black))
+                        onPressed: (){},),
+                         RaisedButton(
+                            color: Colors.yellow,
+                            onPressed: (){
+                              Navigator.popAndPushNamed(context,'loginScreen');
+                            },
+                            child:Text('I\'m not new',style:TextStyle(color:Colors.black))
+                          ),
+                ]
               )
-         ],),
+            ),   
+          ],
+         ),
         )
-    ));
+      )
+    );
   }
 }

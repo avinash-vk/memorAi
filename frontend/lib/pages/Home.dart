@@ -28,7 +28,10 @@ class Home extends StatelessWidget {
             ListTile(leading: Icon(Icons.account_circle),
                 title:Text('Dashboard'),
                 onTap: () {
+                  Navigator.pushNamed(context, 'dashboard');
+                  
                 },
+            
             ),
              ListTile(leading: Icon(Icons.notifications),
                 title:Text('SOS'),
