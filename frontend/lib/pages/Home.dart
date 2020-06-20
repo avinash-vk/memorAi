@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
                 onTap: () {
                 },
             ),
-             ListTile(leading: Icon(Icons.notifications),
+             ListTile(leading: Icon(Icons.close),
                 title:Text('Log out'),
                 onTap: (){},
             ),

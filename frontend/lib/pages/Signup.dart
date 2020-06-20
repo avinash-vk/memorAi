@@ -57,6 +57,12 @@ class _SignUpState extends State<SignUp> {
                         textColor: Colors.white,
                         onPressed: (){},
                       )),
+               RaisedButton(
+                onPressed: (){
+                  Navigator.pushNamed(context,'BasicInfoReg');
+                },
+                child:Text('I\'m not new',style:TextStyle(backgroundColor: Colors.yellow,color:Colors.black))
+              )
          ],),
         )
     ));

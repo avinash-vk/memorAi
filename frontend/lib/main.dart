@@ -15,7 +15,7 @@ void main(){
       'chat' :(context) => ChatScreen(),
       'BasicInfoReg':(context) => SignUp(),
       'ImageReg':(context) => ImageReg(),
-      'LocationReg':(context) => LocationReg()
+      'LocationReg':(context) => LocationReg(),
     }
   )
 );
