@@ -23,5 +23,7 @@ def chatbot(message):
 #comment below call for local setup
 if __name__ == '__app__':
     app.run(port=5000) 
+
+#Uncomment this for local run
 #app.run(port=5000)  
 
