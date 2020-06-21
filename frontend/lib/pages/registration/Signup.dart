@@ -50,21 +50,24 @@ class _SignUpState extends State<SignUp> {
                   ),
               
               Container(
-                      padding: const EdgeInsets.only(left: 40.0, top: 20.0),
-                      child:Column(
-                        children:<Widget>[
-                        RaisedButton(
-                        child: const Text('Next'),
-                        color:Colors.redAccent,
-                        textColor: Colors.white,
-                        onPressed: (){},),
-                         RaisedButton(
-                            color: Colors.yellow,
-                            onPressed: (){
-                              Navigator.popAndPushNamed(context,'loginScreen');
-                            },
-                            child:Text('I\'m not new',style:TextStyle(color:Colors.black))
-                          ),
+                  padding: const EdgeInsets.only(left: 40.0, top: 20.0),
+                  child:Column(
+                    children:<Widget>[
+                    RaisedButton(
+                      child: const Text('Next'),
+                      color:Colors.redAccent,
+                      textColor: Colors.white,
+                      onPressed: (){
+                        Navigator.pushNamed(context, 'ImageReg');
+                      },
+                    ),
+                    RaisedButton(
+                      color: Colors.yellow,
+                      onPressed: (){
+                        Navigator.popAndPushNamed(context,'loginScreen');
+                      },
+                      child:Text('I\'m not new',style:TextStyle(color:Colors.black))
+                    ),
                 ]
               )
             ),   

@@ -1,0 +1,23 @@
+<script>
+    const callApi = () => {
+        var message = document.getElementById('message').value
+        var host = window.location.host;
+        var resp = document.getElementById('response')
+        resp.innerHTML="Loading.."
+        console.log("hey")
+        fetch('/api/chatbot/'+message)
+        .then(res => res.json())
+        .then((res) =>{
+            console.log(res)
+            resp.innerHTML = JSON.stringify(res)
+        })
+    }
+</script>
+
+<form>
+    <h1>Testing bot</h1><br/>
+    <input id='message' type='text' />
+    <button type='button' onclick="callApi()">submit</button>
+    <p id = "response"></p>
+</form>
+
