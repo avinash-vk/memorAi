@@ -1,0 +1,5 @@
+Backend for the chatbot.
+index.js handles replies to sent messages.
+Sent messages are collected at methods.js -> It stores the intent etc. 
+http://127.0.0.1:4040/inspect/http is where Facebook message summaries etc are sent. 
+It is an "ngrok-Inspect".
