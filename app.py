@@ -28,17 +28,17 @@ def patient_info():
     print(data)
 
 @app.route('/api/add_patient_relative'):
-def patient_relatives():
+def add_patient_relatives():
     data = request.json
     print(data)
 
 @app.route('/api/get_patient_relative'):
-def patient_relatives():
+def get_patient_relatives():
     data = request.json
     print(data)
 
 @app.route('/api/update_patient_relative'):
-def patient_relatives():
+def update_patient_relatives():
     data = request.json
     print(data)
 

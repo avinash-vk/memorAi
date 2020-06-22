@@ -121,9 +121,7 @@ class _LocationRegState extends State<LocationReg> {
       ),),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.redAccent,
-        onPressed: (){
-          Navigator.pushNamed(context, 'initial_loading');
-        },
+        onPressed:onPress,
         child: Icon(Icons.check,color:Colors.white),
       ),
     );
