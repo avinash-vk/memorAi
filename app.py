@@ -8,10 +8,10 @@ app = Flask(__name__)
 access_token = 'PQWCP34JWQI3KFAGX3IJGZBDH7JN66LM'
 
 # Initialize Firestore DB
-cred = credentials.Certificate('./key.json')
+'''cred = credentials.Certificate('./key.json')
 fireapp = initialize_app(cred)
 db = fireapp.Firestore()
-
+'''
 
 @app.route('/')
 def main():
@@ -21,8 +21,8 @@ def main():
 def createUser():
     data = request.json
     print(data)
-
-@app.route('/api/get_patient_info'):
+'''
+@app.route('/api/getPatientInfo'):
 def patient_info():
     data = request.json
     print(data)
@@ -56,7 +56,7 @@ def remove_medicine():
 def get_medicine():
     data = request.json
     print(data)
-
+'''
 @app.route('/test')
 def botTest():
     return render_template('test.html')
@@ -109,9 +109,9 @@ def chatbot(message):
     return response
 
 #comment below call for local setup
-if __name__ == '__app__':
-    app.run(port=5000) 
+#if __name__ == '__app__':
+#    app.run(port=5000) 
 
 #Uncomment this for local run
-#app.run(port=5000)  
+app.run(port=5000)  
 
