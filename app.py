@@ -3,11 +3,59 @@ from flask import Flask,jsonify,request,Response,render_template
 from wit import Wit
 
 app = Flask(__name__)
+
+#wit.ai bot
 access_token = 'PQWCP34JWQI3KFAGX3IJGZBDH7JN66LM'
+
+# Initialize Firestore DB
+cred = credentials.Certificate('./key.json')
+fireapp = initialize_app(cred)
+db = fireapp.Firestore()
+
 
 @app.route('/')
 def main():
     return "welcome to memorAi"
+
+@app.route('/createUser',methods = ['POST'])
+def createUser():
+    data = request.json
+    print(data)
+
+@app.route('/api/get_patient_info'):
+def patient_info():
+    data = request.json
+    print(data)
+
+@app.route('/api/add_patient_relative'):
+def patient_relatives():
+    data = request.json
+    print(data)
+
+@app.route('/api/get_patient_relative'):
+def patient_relatives():
+    data = request.json
+    print(data)
+
+@app.route('/api/update_patient_relative'):
+def patient_relatives():
+    data = request.json
+    print(data)
+
+@app.route('/api/add_medicines'):
+def add_medicine():
+    data = request.json
+    print(data)
+
+@app.route('/api/remove_medicines'):
+def remove_medicine():
+    data = request.json
+    print(data)
+
+@app.route('/api/get_medicines'):
+def get_medicine():
+    data = request.json
+    print(data)
 
 @app.route('/test')
 def botTest():
@@ -61,9 +109,9 @@ def chatbot(message):
     return response
 
 #comment below call for local setup
-if __name__ == '__app__':
-    app.run(port=5000) 
+#if __name__ == '__app__':
+#    app.run(port=5000) 
 
 #Uncomment this for local run
-#app.run(port=5000)  
+app.run(port=5000)  
 
