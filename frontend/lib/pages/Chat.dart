@@ -1,6 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
-
+import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
 
@@ -59,10 +60,14 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  void onSend(ChatMessage message) {
+  Future<void> onSend(ChatMessage message) async {
     final question = message;
+    final url = 'https://memorai.herokuapp.com/api/chatbot/' + message.text;
+    Response answer = await get(url);
+    var obj = (jsonDecode(answer.body));
+    var chatResponse = obj['chat_response'];
     final botReply = ChatMessage(
-          text: message.text,
+          text: chatResponse,
           createdAt: DateTime.now(),
           user: bot);
     setState(() {
