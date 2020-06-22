@@ -22,9 +22,9 @@ class _LocationRegState extends State<LocationReg> {
     setState(() {
       location = loc;
     });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    /*SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('location', location.toString());
-  }
+  */}
 
   Future<void> onPress() async{
     setState(() {
@@ -34,11 +34,11 @@ class _LocationRegState extends State<LocationReg> {
     var name = prefs.getString('name');
     var pno = prefs.getString('emergency_contact');
     var imageUrl = prefs.getString('image_url');
-    var location = prefs.getString('location');
+    var loc = location;
 
     String url = "https://memorai.herokuapp.com/api/createUser";
     Map<String,String> headers = {"Content-type" : "application/json"};
-    Map js = {"emergency_pno":pno,"patient_name":name,"patient_location":location,'patient_dp':imageUrl}; //ADD OTHER INFO
+    Map js = {"emergency_pno":pno,"patient_name":name,"patient_location":{'loc':loc.latitude,'lat':loc.longitude},'patient_dp':imageUrl}; //ADD OTHER INFO
     var body = json.encode(js);
 
     try{
