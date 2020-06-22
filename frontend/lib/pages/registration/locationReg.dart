@@ -46,7 +46,6 @@ class _LocationRegState extends State<LocationReg> {
           
           int code = response.statusCode;
           print(code);
-          print(response.body);
           if (code<300){
             setState(() {
               helperText = "SUCCESS";

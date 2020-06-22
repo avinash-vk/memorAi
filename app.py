@@ -21,6 +21,7 @@ def main():
 def createUser():
     data = request.json
     print(data)
+    return Response({'status':'success'})
 '''
 @app.route('/api/getPatientInfo'):
 def patient_info():
