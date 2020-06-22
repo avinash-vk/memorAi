@@ -8,40 +8,55 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   String phoneNumber = "";
-  String password = "";
-  String text = "Logged out";
+  String infoText = "";
   bool isLoading = false;
   final pnoController = TextEditingController();
-  final passController = TextEditingController();
-
+  
+  Future<void> signIn () async{
+    //db check
+    Navigator.pushNamed(context, 'home');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:  CustomAppBar(),
       body:Padding(
         padding: EdgeInsets.all(40),
-        child: Column(children: <Widget>[
-        SizedBox(height:42),
-        
+        child: Column(
+        mainAxisAlignment: MainAxisAlignment.center ,
+        children: <Widget>[
+          
+          Text(
+            'Hello friend! I am memorAi and i will help you remember things faster.\n\nLogin to continue',
+            style: TextStyle(
+              letterSpacing: 2.0,
+              color: Colors.grey[800],
+              fontSize: 20,
+            ),
+          ),
+        SizedBox(height: 20,),
         TextField(
           controller: pnoController,
           decoration: InputDecoration(
-               border: InputBorder.none,
+               focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.redAccent, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.redAccent, width: 1.0),
+                ),
                hintText: 'Phone number',
           ),
         ),
-        TextField(
-          controller: passController,
-          decoration: InputDecoration(
-               border: InputBorder.none,
-               hintText: 'Password',
-          ),
-        ),
-       SizedBox(height:30),
-        RaisedButton(onPressed:()
-        {
-            Navigator.pushNamed(context, 'home');
-        },
+        
+      SizedBox(height:30),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+        
+         RaisedButton(onPressed:()
+          {
+            signIn();  
+          },
           color:Colors.redAccent,
           child:Text(
             'LOGIN',
@@ -51,25 +66,24 @@ class _LoginState extends State<Login> {
             ),
           )
         ),
-        SizedBox(height:14),
-        Container(
-          child: isLoading == true ? Text('Loading..') : Text('Nope')
-        ),
-        SizedBox(height: 20,),
-        Text(
-          text,
-          style:TextStyle(
-            fontSize: 20,
-          )
-        ),
-        SizedBox(height: 10,),
+        
+        
+        SizedBox(width: 20,),
         RaisedButton(
-          color: Colors.yellow,
+          color: Colors.yellow[600],
           onPressed: (){
             Navigator.popAndPushNamed(context,'BasicInfoReg');
           },
-          child:Text('I\'m new',style:TextStyle(color:Colors.black))
+          child:Text('I\'M NEW',style: TextStyle(
+              letterSpacing: 2.0,
+              color: Colors.white,
+            ),)
         )
+      ],),
+       SizedBox(height:14),
+        Container(
+          child: Text(infoText)
+        ),
       ],
       )
       )

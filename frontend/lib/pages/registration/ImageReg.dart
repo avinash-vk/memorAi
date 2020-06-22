@@ -1,8 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:frontend/components/firebaseImageUpload.dart';
 
 class ImageReg extends StatefulWidget {
   @override
@@ -12,9 +13,28 @@ class ImageReg extends StatefulWidget {
 class _ImageRegState extends State<ImageReg> {
   //state
   File _image;
-  
-  
-  
+  String url = '';
+  String helperText = '';
+
+  /// Starts an upload task
+  Future<void> onSubmit() async{
+    if (_image == null){
+      setState(() {
+        helperText = 'No image found!';
+      });
+      return null;
+    }
+    setState(() {
+      helperText = 'Uploading';
+    });
+    String url = await firebaseUpload(_image);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('image_url', url);
+    setState(() {
+      helperText = 'Uploaded';
+    });
+  }
+
   final picker = ImagePicker();
   Future getImageFromCamera() async {
     final cameraFile = await picker.getImage(source: ImageSource.camera);
@@ -31,9 +51,7 @@ class _ImageRegState extends State<ImageReg> {
       _image = File(galleryFile.path);
     });}
   }
-  void uploadImage(){
-    //DB IMAGE UPLOAD AND ACTIVATE NEXT BUTTON
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +101,11 @@ class _ImageRegState extends State<ImageReg> {
         ),
         
         RaisedButton(
-          onPressed: uploadImage,
+          onPressed: onSubmit,
           color: Colors.redAccent,
           child:Text('UPLOAD',style: TextStyle(color:Colors.white),),
         ),
+        Text(helperText),
         ]
       ),
       floatingActionButton: FloatingActionButton(

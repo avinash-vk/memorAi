@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "310050900810",
+    "firebase_url": "https://memorai-920f7.firebaseio.com",
+    "project_id": "memorai-920f7",
+    "storage_bucket": "memorai-920f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310050900810:android:c6163510abfb3bb7238fb3",
+        "android_client_info": {
+          "package_name": "com.android.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310050900810-90fv6b6c9onndtv1c722t43p377l2lha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk8f9RP4ToqByJ-36sgVDLv5IlI-XfGgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310050900810-90fv6b6c9onndtv1c722t43p377l2lha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310050900810:android:6fd8202385654b22238fb3",
+        "android_client_info": {
+          "package_name": "com.example.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310050900810-90fv6b6c9onndtv1c722t43p377l2lha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk8f9RP4ToqByJ-36sgVDLv5IlI-XfGgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310050900810-90fv6b6c9onndtv1c722t43p377l2lha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

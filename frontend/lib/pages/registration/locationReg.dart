@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
 import 'package:frontend/components/Location.dart';
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationReg extends StatefulWidget {
   @override
@@ -17,6 +18,8 @@ class _LocationRegState extends State<LocationReg> {
     setState(() {
       location = loc;
     });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('location', location.toString());
   }
 
   @override
@@ -38,7 +41,7 @@ class _LocationRegState extends State<LocationReg> {
           ) 
           )
         ),
-        SizedBox(height: 40,),
+        SizedBox(height: 20,),
         Center(
           child:Container(
             padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
@@ -52,7 +55,7 @@ class _LocationRegState extends State<LocationReg> {
           ) 
           )
         ),
-        SizedBox(width: 20,),
+        SizedBox(width: 5,),
         RaisedButton(onPressed: setLocation,
           color: Colors.redAccent,
           child: Icon(Icons.photo_camera,color:Colors.white),
