@@ -17,7 +17,7 @@ db = fireapp.Firestore()
 def main():
     return "welcome to memorAi"
 
-@app.route('/createUser',methods = ['POST'])
+@app.route('/api/createUser',methods = ['POST'])
 def createUser():
     data = request.json
     print(data)
