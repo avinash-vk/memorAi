@@ -7,6 +7,8 @@ import 'package:frontend/pages/Home.dart';
 import 'package:frontend/pages/Chat.dart';
 import 'package:frontend/pages/registration/Signup.dart';
 import 'package:frontend/pages/registration/locationReg.dart';
+import 'package:frontend/pages/MemoryGame.dart';
+
 void main(){ 
   runApp(
   MaterialApp(
@@ -24,6 +26,7 @@ void main(){
       'LocationReg':(context) => LocationReg(),
       'dashboard':(context) => Dashboard(),
       'medicine':(context) => Medicine(),
+      'memory':(context) => Memory(),
     }
   )
 );
