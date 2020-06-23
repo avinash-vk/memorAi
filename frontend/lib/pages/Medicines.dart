@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/components/Appbar.dart';
 import 'package:frontend/components/AddMedicine.dart';
+import 'package:frontend/components/notifications.dart';
+
+
 class Medicine extends StatefulWidget {
   @override
   _MedicineState createState() => _MedicineState();
@@ -9,12 +12,15 @@ class Medicine extends StatefulWidget {
 
 class _MedicineState extends State<Medicine> {
   List<Map> medicines = [{'name':'paracetamol'},{'name':'paracetamol3'}];
-  
+  final NotificationManager notificationManager = NotificationManager();
+
   Future<void> addMedicine (Map medicine) async{
     await medicines.add(medicine);
+    int id = medicines.length;
     setState(() {
       medicines = medicines;
     });
+    notificationManager.showNotificationDaily(id, medicine['name'], medicine['dose'], medicine['hour'], medicine['minute']);
     Fluttertoast.showToast(
           msg: "The Medicine was added!",
           toastLength: Toast.LENGTH_SHORT,
