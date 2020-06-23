@@ -71,6 +71,7 @@ class _LocationRegState extends State<LocationReg> {
     if(loading){
       return Scaffold(appBar: CustomAppBar(),
         body:Column(mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text('LOADING...')
         ],

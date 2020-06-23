@@ -8,7 +8,7 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(),
-      body: Padding(
+      body: SingleChildScrollView(child: Padding(
         padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +24,7 @@ class Dashboard extends StatelessWidget {
               color: Colors.redAccent,
             ),
             Text(
-              'NAME',
+              'Hello i am',
               style: TextStyle(
                 color: Colors.redAccent[400],
                 letterSpacing: 2.0,
@@ -32,7 +32,7 @@ class Dashboard extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              'Prats',
+              'Drake',
               style: TextStyle(
                 color: Colors.black54,
                 letterSpacing: 2.0,
@@ -42,7 +42,7 @@ class Dashboard extends StatelessWidget {
             ),
             SizedBox(height: 30.0),
             Text(
-              'Ninja Level',
+              'and i have a memory score of',
               style: TextStyle(
                 color: Colors.redAccent[400],
                 letterSpacing: 2.0,
@@ -50,7 +50,7 @@ class Dashboard extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              'Crystal',
+              '716',
               style: TextStyle(
                 color: Colors.black54,
                 letterSpacing: 2.0,
@@ -59,27 +59,63 @@ class Dashboard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.0),
-            Row(
-              children: <Widget>[
-                Icon(
-                  Icons.email,
-                  color: Colors.grey[400],
-                ),
-                SizedBox(width: 10.0),
-                Text(
-                  'prats@ninja.com',
-                  style: TextStyle(
-                    color: Colors.grey[400],
-                    fontSize: 18.0,
-                    letterSpacing: 1.0,
-                  ),
-                ),
-              ],
+            Text(
+              'I live here',
+              style: TextStyle(
+                color: Colors.redAccent[400],
+                letterSpacing: 2.0,
+              ),
             ),
-            SizedBox(height: 20,),
-            Text('qr code comes here if needed'),
+            SizedBox(height: 10.0),
+            Text(
+              '12th baker street oxford.',
+              style: TextStyle(
+                color: Colors.black54,
+                letterSpacing: 2.0,
+                fontSize: 28.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 30.0),
+            Text(
+              'My emergency contact:',
+              style: TextStyle(
+                color: Colors.redAccent[400],
+                letterSpacing: 2.0,
+              ),
+            ),
+            SizedBox(height: 10.0),
+            Text(
+              '+91 394928239',
+              style: TextStyle(
+                color: Colors.black54,
+                letterSpacing: 2.0,
+                fontSize: 28.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            
+           SizedBox(height: 50,),
+           Row(mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RaisedButton(
+                onPressed: (){
+                  Navigator.pushNamed(context, 'medicine');
+                },
+                child: Text('MEDICINES',style:TextStyle(color: Colors.white),),
+                color: Colors.redAccent,
+              ),
+              SizedBox(width: 30,),
+              RaisedButton(color: Colors.redAccent,
+                onPressed:(){},
+                child:Text('RELATIVES',style:TextStyle(color: Colors.white),),
+              )
+            ],
+           ),
+            SizedBox(height: 50,),
           ],
         ),
+      ),
       ),
     );
   }
