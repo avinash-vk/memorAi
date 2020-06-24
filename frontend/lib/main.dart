@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/Dashboard.dart';
 import 'package:frontend/pages/Medicines.dart';
+import 'package:frontend/pages/Relatives.dart';
 import 'package:frontend/pages/registration/ImageReg.dart';
 import 'package:frontend/pages/Login.dart';
 import 'package:frontend/pages/Home.dart';
@@ -24,6 +25,7 @@ void main(){
       'LocationReg':(context) => LocationReg(),
       'dashboard':(context) => Dashboard(),
       'medicine':(context) => Medicine(),
+      'relative':(context) => Relative(),
     }
   )
 );

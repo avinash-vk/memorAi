@@ -107,7 +107,9 @@ class Dashboard extends StatelessWidget {
               ),
               SizedBox(width: 30,),
               RaisedButton(color: Colors.redAccent,
-                onPressed:(){},
+                onPressed:(){
+                  Navigator.pushNamed(context, 'relative');
+                },
                 child:Text('RELATIVES',style:TextStyle(color: Colors.white),),
               )
             ],
