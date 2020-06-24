@@ -9,15 +9,18 @@ import 'package:frontend/pages/Chat.dart';
 import 'package:frontend/pages/registration/Signup.dart';
 import 'package:frontend/pages/registration/locationReg.dart';
 import 'package:frontend/pages/MemoryGame.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+Future<void> main() async{ 
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var auth = prefs.getBool('auth');
 
-void main(){ 
   runApp(
   MaterialApp(
     theme: ThemeData(
     // Define the default brightness and colors.
     primaryColor: Colors.redAccent,
     accentColor: Colors.redAccent,),
-    initialRoute: 'loginScreen',
+    initialRoute: (auth)?'home':'loginScreen',
     routes: {
       'loginScreen': (context) => Login(),
       'home' :(context) => Home(),

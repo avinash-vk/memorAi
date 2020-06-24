@@ -35,10 +35,10 @@ class _LocationRegState extends State<LocationReg> {
     var pno = prefs.getString('emergency_contact');
     var imageUrl = prefs.getString('image_url');
     var loc = location;
-
-    String url = "https://memorai.herokuapp.com/api/createUser";
+    String url = "http://192.168.1.7:5000/api/createUser";
+    //String url = "https://memorai.herokuapp.com/api/createUser";
     Map<String,String> headers = {"Content-type" : "application/json"};
-    Map js = {"emergency_pno":pno,"patient_name":name,"patient_location":{'loc':loc.latitude,'lat':loc.longitude},'patient_dp':imageUrl}; //ADD OTHER INFO
+    Map js = {"medicines":[],"relatives":[],"messages":[],"memory_score":0,"emergency_pno":pno,"patient_name":name,"patient_location":{'loc':loc.latitude,'lat':loc.longitude},'patient_dp':imageUrl}; //ADD OTHER INFO
     var body = json.encode(js);
 
     try{
@@ -50,7 +50,7 @@ class _LocationRegState extends State<LocationReg> {
             setState(() {
               helperText = "SUCCESS";
             });
-            Navigator.popAndPushNamed(context, 'home');  
+            //Navigator.popAndPushNamed(context, 'home');  
           }
           else
             setState(() {

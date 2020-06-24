@@ -1,27 +1,50 @@
 from flask import Flask,jsonify,request,Response,render_template
-
 from wit import Wit
-
+import os
+import json
+import pyrebase
 app = Flask(__name__)
 
 #wit.ai bot
 access_token = 'PQWCP34JWQI3KFAGX3IJGZBDH7JN66LM'
 
 # Initialize Firestore DB
-'''cred = credentials.Certificate('./key.json')
-fireapp = initialize_app(cred)
-db = fireapp.Firestore()
-'''
+config = {
+    "apiKey": 'AIzaSyAY3r-JFmZH2G96JNYz9nLwLkgbUEtnl-0' ,
+    "authDomain": "memorai-920f7.firebaseapp.com",
+    "databaseURL": "https://memorai-920f7.firebaseio.com",
+    "projectId": "memorai-920f7",
+    "storageBucket": "memorai-920f7.appspot.com",
+    "messagingSenderId": "310050900810",
+    "appId": "1:310050900810:web:e00eaa3054f5bfb2238fb3",
+    "measurementId": "G-K71LF47NZ8"
+}
+firebase = pyrebase.initialize_app(config)
+db = firebase.database()
 
 @app.route('/')
 def main():
     return "welcome to memorAi"
 
 @app.route('/api/createUser',methods = ['POST'])
-def createUser():
+def createUser():    
     data = request.json
-    print(data)
+    print(data,type(data))
+    db.child('users').child(data['emergency_pno']).set(data)
     return Response({'status':'success'})
+
+@app.route('/api/get_auth_info/<number>')
+def getAuthInfo(number):
+    try:
+        user = {}
+        user = db.child('users').child(number).get()
+        d = dict(user.val())
+        print(type(d))
+        return jsonify({'user':str(d)})
+    except:
+        return jsonify({'user':str()})
+@app.route('/api/get_auth_info/<number>')
+def setMedicines
 '''
 @app.route('/api/getPatientInfo'):
 def patient_info():
@@ -110,9 +133,9 @@ def chatbot(message):
     return response
 
 #comment below call for local setup
-if __name__ == '__app__':
-    app.run(port=5000) 
+#if __name__ == '__app__':
+#    app.run(port=5000) 
 
 #Uncomment this for local run
-#app.run(port=5000)  
+app.run(host="0.0.0.0",port=5000)  
 
