@@ -5,7 +5,7 @@
         var resp = document.getElementById('response')
         resp.innerHTML="Loading.."
         console.log("hey")
-        fetch('/api/chatbot/'+message)
+        fetch('/api/chatbot/12345/'+message)
         .then(res => res.json())
         .then((res) =>{
             console.log(res)

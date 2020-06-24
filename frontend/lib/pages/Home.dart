@@ -79,6 +79,7 @@ class Home extends StatelessWidget {
             ),
             SizedBox(height: 10),
             RaisedButton(onPressed: (){
+              Navigator.pushNamed(context, 'memory');
             },
               color: Colors.redAccent,
               child : Text(
