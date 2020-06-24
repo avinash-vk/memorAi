@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
-
+import 'package:frontend/pages/userInfo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -9,12 +10,31 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   String phoneNumber = "";
   String infoText = "";
+  String helperText="";
   bool isLoading = false;
   final pnoController = TextEditingController();
   
   Future<void> signIn () async{
-    //db check
-    Navigator.pushNamed(context, 'home');
+    setState(() {
+      phoneNumber = pnoController.text;
+      helperText="Loading";
+    });
+    Map js = await userInfo(phoneNumber);
+    if(js == null){
+      setState(() {
+        helperText="inValid creds";
+      });
+    }
+    else{
+      setState(() {
+        helperText="success";
+      });
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('auth', 'true' );
+      prefs.setString('auth_no', phoneNumber);
+      Navigator.popAndPushNamed(context, 'home');
+    }
+    
   }
   @override
   Widget build(BuildContext context) {
@@ -84,6 +104,7 @@ class _LoginState extends State<Login> {
         Container(
           child: Text(infoText)
         ),
+        Text(helperText),
       ],
       )
       )

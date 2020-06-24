@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatelessWidget {
   //const Login({Key key}) : super(key: key);
@@ -46,7 +46,11 @@ class Home extends StatelessWidget {
             ),
              ListTile(leading: Icon(Icons.close),
                 title:Text('Log out'),
-                onTap: (){},
+                onTap: () async {
+                  SharedPreferences prefs = await SharedPreferences.getInstance(); 
+                  prefs.setBool('auth', false);
+                  Navigator.popAndPushNamed(context, 'loginScreen');
+                },
             ),
 
           ]

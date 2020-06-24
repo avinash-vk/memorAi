@@ -11,6 +11,7 @@ import 'package:frontend/pages/registration/locationReg.dart';
 import 'package:frontend/pages/MemoryGame.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async{ 
+  WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var auth = prefs.getBool('auth');
 
@@ -20,7 +21,7 @@ Future<void> main() async{
     // Define the default brightness and colors.
     primaryColor: Colors.redAccent,
     accentColor: Colors.redAccent,),
-    initialRoute: (auth)?'home':'loginScreen',
+    initialRoute: (auth == null)?'loginScreen':'home',
     routes: {
       'loginScreen': (context) => Login(),
       'home' :(context) => Home(),

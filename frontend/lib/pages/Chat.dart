@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:frontend/pages/userInfo.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
 
 import 'package:intl/intl.dart';
 import 'package:dash_chat/dash_chat.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ChatScreen extends StatefulWidget {
@@ -15,16 +17,11 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final GlobalKey<DashChatState> _chatViewKey = GlobalKey<DashChatState>();
   
-  final ChatUser user = ChatUser(
-    name: "Tom",
-    firstName: "Tom",
-    lastName: "Hanks",
-    uid: "123456789",
-    containerColor: Colors.redAccent,
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
-  );
+  var uid = '';
+  var avatar = '';
+  final GlobalKey<DashChatState> _chatViewKey = GlobalKey<DashChatState>();
+  ChatUser user;
 
   final ChatUser bot = ChatUser(
     name: "BOT",
@@ -36,9 +33,28 @@ class _ChatScreenState extends State<ChatScreen> {
 
   var i = 0;
 
+  Future<void> start() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var pno = prefs.getString('auth_no');
+    Map js = await userInfo(pno);
+    print(js);
+    /*ChatUser user = ChatUser(
+      name: js['name'],
+      firstName: js['name'],
+      lastName: js['name'],
+      uid: pno,
+      containerColor: Colors.redAccent,
+      avatar: (js['patient_dp']==null)?"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d":js['patient_dp'],
+    );
+    setState(() {
+      user = user;
+
+    });
+  */}
   @override
-  void initState() {
+  void initState(){
     super.initState();
+    start();
   }
 
   void systemMessage() {

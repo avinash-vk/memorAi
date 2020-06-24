@@ -50,7 +50,9 @@ class _LocationRegState extends State<LocationReg> {
             setState(() {
               helperText = "SUCCESS";
             });
-            //Navigator.popAndPushNamed(context, 'home');  
+            prefs.setBool('auth', true);  
+            prefs.setString('auth_no', pno);
+            Navigator.popAndPushNamed(context, 'home');  
           }
           else
             setState(() {

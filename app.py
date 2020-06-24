@@ -40,11 +40,11 @@ def getAuthInfo(number):
         user = db.child('users').child(number).get()
         d = dict(user.val())
         print(type(d))
-        return jsonify({'user':str(d)})
+        return jsonify({'user':jsonify(d)})
     except:
         return jsonify({'user':str()})
 @app.route('/api/get_auth_info/<number>')
-def setMedicines
+def setMedicines():pass
 '''
 @app.route('/api/getPatientInfo'):
 def patient_info():
