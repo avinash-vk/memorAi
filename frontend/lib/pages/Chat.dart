@@ -18,11 +18,17 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   
-  var uid = '';
-  var avatar = '';
+  
   final GlobalKey<DashChatState> _chatViewKey = GlobalKey<DashChatState>();
-  ChatUser user;
-
+  ChatUser user;/* = ChatUser(
+      name: 'pat',
+      firstName: 'pat',
+      lastName: 'pat',
+      uid: '1234',
+      containerColor: Colors.redAccent,
+      avatar:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
+    );*/
+  var isLoading = true;
   final ChatUser bot = ChatUser(
     name: "BOT",
     uid: "25649654",
@@ -33,28 +39,46 @@ class _ChatScreenState extends State<ChatScreen> {
 
   var i = 0;
 
-  Future<void> start() async{
+  Future<ChatUser> start() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var pno = prefs.getString('auth_no');
     Map js = await userInfo(pno);
     print(js);
-    /*ChatUser user = ChatUser(
+    ChatUser userx = ChatUser(
       name: js['name'],
       firstName: js['name'],
       lastName: js['name'],
-      uid: pno,
+      uid: '1234',
       containerColor: Colors.redAccent,
       avatar: (js['patient_dp']==null)?"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d":js['patient_dp'],
     );
-    setState(() {
-      user = user;
-
-    });
-  */}
+    return userx;
+  }
   @override
   void initState(){
+
     super.initState();
-    start();
+    new Future<ChatUser>.delayed(new Duration(seconds: 1), () async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var pno = prefs.getString('auth_no');
+    Map js = await userInfo(pno);
+    print(js);
+    ChatUser userx = ChatUser(
+      name: js['name'],
+      firstName: js['name'],
+      lastName: js['name'],
+      uid: '1234',
+      containerColor: Colors.redAccent,
+      avatar: (js['patient_dp']==null)?"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d":js['patient_dp'],
+    );
+    return userx;
+    }).then((ChatUser userx) {
+      setState(() {
+        user = userx;
+        isLoading = false;
+      });
+    });
+    
   }
 
   void systemMessage() {
@@ -78,6 +102,18 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> onSend(ChatMessage message) async {
     final question = message;
+    setState(() {
+      messages = [...messages,message];
+      print(messages.length);
+    });
+    if (i == 0) {
+      systemMessage();
+      Timer(Duration(milliseconds: 600), () {
+        systemMessage();
+      });
+    } else {
+      systemMessage();
+    } 
     final url = 'https://memorai.herokuapp.com/api/chatbot/' + message.text;
     Response answer = await get(url);
     var obj = (jsonDecode(answer.body));
@@ -87,7 +123,7 @@ class _ChatScreenState extends State<ChatScreen> {
           createdAt: DateTime.now(),
           user: bot);
     setState(() {
-      messages = [...messages, question,botReply];
+      messages = [...messages,botReply];
       print(messages.length);
     });
 
@@ -103,9 +139,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: CustomAppBar(),
-      body: DashChat(
+      body:
+      (isLoading)? Text('Loading')
+      :DashChat(
                 
                 key: _chatViewKey,
                 inverted: false,

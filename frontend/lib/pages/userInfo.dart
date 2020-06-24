@@ -10,8 +10,8 @@ Future<Map> userInfo(phoneNumber) async{
       return null;
     }
     else{
-      
-      Map js = jsonDecode(auth['user']);
+      Map js = auth['user'];
+      print(js);
       return js;
     }
 } 

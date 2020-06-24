@@ -39,9 +39,10 @@ def getAuthInfo(number):
         user = {}
         user = db.child('users').child(number).get()
         d = dict(user.val())
-        print(type(d))
-        return jsonify({'user':jsonify(d)})
-    except:
+        print(type(jsonify(d)))
+        return jsonify({'user':d})
+    except Exception as e:
+        print(e)
         return jsonify({'user':str()})
 @app.route('/api/get_auth_info/<number>')
 def setMedicines():pass
