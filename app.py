@@ -39,7 +39,6 @@ def getAuthInfo(number):
         user = {}
         user = db.child('users').child(number).get()
         d = dict(user.val())
-        print(type(jsonify(d)))
         return jsonify({'user':d})
     except Exception as e:
         print(e)
