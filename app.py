@@ -85,7 +85,7 @@ def chatbot(message):
         contact = '+916969696969'
         chat_response = 'Your emergency contact is '+contact+' take care.'
 
-    elif intent == 'get_medicine':
+    elif intent == 'get_medicines':
         #todo db call
         medicine = [['2pm','crocin'],['3pm','sleeping pills']]
         chat_response = ''

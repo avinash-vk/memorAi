@@ -8,7 +8,7 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(),
-      body: SingleChildScrollView(child: Padding(
+      body: Padding(
         padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +24,7 @@ class Dashboard extends StatelessWidget {
               color: Colors.redAccent,
             ),
             Text(
-              'Hello i am',
+              'NAME',
               style: TextStyle(
                 color: Colors.redAccent[400],
                 letterSpacing: 2.0,
@@ -32,7 +32,7 @@ class Dashboard extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              'Drake',
+              'Joe',
               style: TextStyle(
                 color: Colors.black54,
                 letterSpacing: 2.0,
@@ -42,7 +42,7 @@ class Dashboard extends StatelessWidget {
             ),
             SizedBox(height: 30.0),
             Text(
-              'and i have a memory score of',
+              'Contact no.',
               style: TextStyle(
                 color: Colors.redAccent[400],
                 letterSpacing: 2.0,
@@ -50,7 +50,7 @@ class Dashboard extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              '716',
+              '9999966777',
               style: TextStyle(
                 color: Colors.black54,
                 letterSpacing: 2.0,
@@ -59,40 +59,22 @@ class Dashboard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.0),
-            Text(
-              'I live here',
-              style: TextStyle(
-                color: Colors.redAccent[400],
-                letterSpacing: 2.0,
-              ),
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              '12th baker street oxford.',
-              style: TextStyle(
-                color: Colors.black54,
-                letterSpacing: 2.0,
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 30.0),
-            Text(
-              'My emergency contact:',
-              style: TextStyle(
-                color: Colors.redAccent[400],
-                letterSpacing: 2.0,
-              ),
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              '+91 394928239',
-              style: TextStyle(
-                color: Colors.black54,
-                letterSpacing: 2.0,
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              children: <Widget>[
+                Icon(
+                  Icons.email,
+                  color: Colors.grey[400],
+                ),
+                SizedBox(width: 10.0),
+                Text(
+                  'joe@medicallifestyle.com',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontSize: 18.0,
+                    letterSpacing: 1.0,
+                  ),
+                ),
+              ],
             ),
             
            SizedBox(height: 50,),
@@ -117,7 +99,6 @@ class Dashboard extends StatelessWidget {
             SizedBox(height: 50,),
           ],
         ),
-      ),
       ),
     );
   }

@@ -33,6 +33,12 @@ class Home extends StatelessWidget {
                 },
             
             ),
+            ListTile(leading: Icon(Icons.videogame_asset),
+              title: Text('Memory Game'),
+              onTap: () {
+                Navigator.pushNamed(context, 'memory');
+              },
+            ),
              ListTile(leading: Icon(Icons.notifications),
                 title:Text('SOS'),
                 onTap: () {
@@ -42,6 +48,7 @@ class Home extends StatelessWidget {
                 title:Text('Log out'),
                 onTap: (){},
             ),
+
           ]
         ),
       ),
@@ -119,8 +126,8 @@ class Home extends StatelessWidget {
                 'HeLp me lol',
                 style:TextStyle(color:Colors.white)
               ),
-            ), 
-            
+            ),
+
           ],)  
       ),
       floatingActionButton: FloatingActionButton(
@@ -131,7 +138,6 @@ class Home extends StatelessWidget {
         child:Icon(Icons.message),
         backgroundColor: Colors.redAccent,
       ),
-     
     );
   }
 }
