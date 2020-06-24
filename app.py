@@ -94,11 +94,17 @@ def chatbot(message):
     entity = bot_response['entities']
     intent = ''
     sentiment = ''
+    notif = 'no'
+    reminder= ''
+    dt = ''
     if bot_response['intents']:
         intent = bot_response['intents'][0]['name']
+
     if bot_response['traits'] and bot_response['traits']['wit$sentiment']:
         sentiment = bot_response['traits']['wit$sentiment'][0]['value']
+
     chat_response = 'Hmm..'
+
     if intent == 'get_name':
         #todo db call
         name = 'joe'
@@ -109,7 +115,7 @@ def chatbot(message):
         contact = '+916969696969'
         chat_response = 'Your emergency contact is '+contact+' take care.'
 
-    elif intent == 'get_medicines':
+    elif intent == 'get_medicine':
         #todo db call
         medicine = [['2pm','crocin'],['3pm','sleeping pills']]
         chat_response = ''
@@ -123,15 +129,34 @@ def chatbot(message):
         #todo db call
         address = '12th street oxford street'
         chat_response = 'You live at '+address
-    
+
+    elif intent == 'get_greeting':
+        chat_response = 'Hello, hope your day is going alright!'  
+        #and other such greetings likewise -> can be finalized later
+    elif intent == 'get_reminder':
+    	#A couple of if statements to check if datetime and reminder entities of get_reminder exist
+    	#Inside these if statements, we could append the datetime and reminder entities to the reminder list
+        if entity["wit$datetime:datetime"] and entity["wit$reminder:reminder"]:
+            obj =  entity["wit$datetime:datetime"][0]["value"]
+            date = obj[:10]
+            time = obj[11:16]
+            reminder = entity["wit$reminder:reminder"][0]["body"]
+            chat_response = "Reminder set : "+reminder+" at "+time+" on "+date
+            notif='yes'
+            dt = date+' '+time
+
     elif sentiment == 'negative':
         chat_response = 'Oh no :( Things are going to get better. Wanna talk to someone?'
     
     response = dict()
     response['bot_response'] = bot_response
     response['chat_response'] = chat_response
-    
+    response['notif'] = notif
+    response['dt'] = dt
+    response['reminder'] = 'You have to '+reminder
     return response
+
+
 
 #comment below call for local setup
 #if __name__ == '__app__':
