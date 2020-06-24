@@ -44,44 +44,21 @@ def getAuthInfo(number):
     except Exception as e:
         print(e)
         return jsonify({'user':str()})
-@app.route('/api/get_auth_info/<number>')
-def setMedicines():pass
-'''
-@app.route('/api/getPatientInfo'):
-def patient_info():
-    data = request.json
-    print(data)
 
-@app.route('/api/add_patient_relative'):
-def add_patient_relatives():
+@app.route('/api/set_medicine/<number>',methods = ['POST'])
+def update_medicines(number):
     data = request.json
     print(data)
+    db.child('users').child(number).update({"medicines": data['data']})
+    return Response({'status':'success'}) 
 
-@app.route('/api/get_patient_relative'):
-def get_patient_relatives():
+@app.route('/api/set_relative/<number>',methods = ['POST'])
+def update_relatives(number):
     data = request.json
     print(data)
+    db.child('users').child(number).update({"relatives": data['data']})
+    return Response({'status':'success'}) 
 
-@app.route('/api/update_patient_relative'):
-def update_patient_relatives():
-    data = request.json
-    print(data)
-
-@app.route('/api/add_medicines'):
-def add_medicine():
-    data = request.json
-    print(data)
-
-@app.route('/api/remove_medicines'):
-def remove_medicine():
-    data = request.json
-    print(data)
-
-@app.route('/api/get_medicines'):
-def get_medicine():
-    data = request.json
-    print(data)
-'''
 @app.route('/test')
 def botTest():
     return render_template('test.html')
@@ -159,9 +136,9 @@ def chatbot(message):
 
 
 #comment below call for local setup
-if __name__ == '__app__':
-    app.run(port=5000) 
+#if __name__ == '__app__':
+#    app.run(port=5000) 
 
 #Uncomment this for local run
-#app.run(host="0.0.0.0",port=5000)  
+app.run(host="0.0.0.0",port=5000)  
 
