@@ -128,7 +128,7 @@ class Home extends StatelessWidget {
             },
               color: Colors.redAccent,
               child : Text(
-                'HeLp me lol',
+                'HeLp me',
                 style:TextStyle(color:Colors.white)
               ),
             ),

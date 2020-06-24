@@ -92,7 +92,7 @@ def chatbot(number,message):
         contact = per['emergency_pno']
         chat_response = 'Your emergency contact is '+contact+' take care.'
 
-    elif intent == 'get_medicine':
+    elif intent == 'get_medicines':
         #todo db call
         
         medicines = per['medicines']
