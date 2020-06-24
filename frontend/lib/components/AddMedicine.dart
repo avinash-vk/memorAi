@@ -124,7 +124,7 @@ class _AddMedicineState extends State<AddMedicine> {
         int hour = selectedTime.hour;
         int minute = selectedTime.minute;
         print(selectedTime);
-        Map med = {"name":_name,"dose":_dose,"hour":hour,"minute":minute};
+        Map med = {"name":_name,"dose":_dose,"hour":hour,"min":minute};
         widget.addMedicine(med);
       });
     }

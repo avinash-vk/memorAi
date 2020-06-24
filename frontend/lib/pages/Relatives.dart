@@ -127,8 +127,8 @@ class _RelativeState extends State<Relative> {
     var pno = prefs.getString('auth_no');
     Map js = await userInfo(pno);
     //print(js);
-    var Relatives = js['relatives'];
-    List<RelativeItem> temp = (Relatives as List).map((med) => RelativeItem.fromJson(med)).toList();
+    var relativesx = js['relatives'];
+    List<RelativeItem> temp = (relativesx ==null)?[]:(relativesx as List).map((med) => RelativeItem.fromJson(med)).toList();
     return temp;
     
   }

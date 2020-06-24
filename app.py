@@ -63,11 +63,12 @@ def botTest():
     return render_template('test.html')
 
 #add api calls here.start with '/api'
-@app.route('/api/chatbot/<message>')
-def chatbot(message):
+@app.route('/api/chatbot/<number>/<message>')
+def chatbot(number,message):
     client = Wit(access_token)
     bot_response = client.message(message)
     entity = bot_response['entities']
+    per = dict(db.child('users').child(number).get().val())
     intent = ''
     sentiment = ''
     notif = 'no'
@@ -83,27 +84,30 @@ def chatbot(message):
 
     if intent == 'get_name':
         #todo db call
-        name = 'joe'
+        name = per['name']
         chat_response = 'Haha your name is '+name+'\n Hello '+name+'!'
     
     elif intent == 'get_contact':
         #todo db call
-        contact = '+916969696969'
+        contact = per['emergency_pno']
         chat_response = 'Your emergency contact is '+contact+' take care.'
 
     elif intent == 'get_medicine':
         #todo db call
-        medicine = [['2pm','crocin'],['3pm','sleeping pills']]
+        
+        medicines = per['medicines']
+        
         chat_response = ''
-        for i in medicine:
-            chat_response+= medicine[1]+' at '+medicine[0]
+        for i in medicines:
+            medicine = [i['name'],i['hour'],i['min']]
+            chat_response+= medicine[0]+' at '+str(medicine[1])+':'+str(medicine[2])+'\n'
         if chat_response:
             chat_response = 'Your medicines listed for today are:\n' + chat_response
         else:
             'no medicines listed!'
     elif intent == 'get_address':
         #todo db call
-        address = '12th street oxford street'
+        address = str(per['location']['lat'])+','+str(per['location']['long'])
         chat_response = 'You live at '+address
 
     elif intent == 'get_greeting':
@@ -135,9 +139,9 @@ def chatbot(message):
 
 
 #comment below call for local setup
-#if __name__ == '__app__':
-#    app.run(port=5000) 
+if __name__ == '__app__':
+    app.run(port=5000) 
 
 #Uncomment this for local run
-app.run(host="0.0.0.0",port=5000)  
+#app.run(host="0.0.0.0",port=5000)  
 

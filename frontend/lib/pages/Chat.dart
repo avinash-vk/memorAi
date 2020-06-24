@@ -20,7 +20,9 @@ class _ChatScreenState extends State<ChatScreen> {
   
   
   final GlobalKey<DashChatState> _chatViewKey = GlobalKey<DashChatState>();
-  ChatUser user;/* = ChatUser(
+  ChatUser user;
+  String pno='';
+  /* = ChatUser(
       name: 'pat',
       firstName: 'pat',
       lastName: 'pat',
@@ -75,6 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }).then((ChatUser userx) {
       setState(() {
         user = userx;
+        pno = pno;
         isLoading = false;
       });
     });
@@ -114,7 +117,7 @@ class _ChatScreenState extends State<ChatScreen> {
     } else {
       systemMessage();
     } 
-    final url = 'https://memorai.herokuapp.com/api/chatbot/' + message.text;
+    final url = 'https://memorai.herokuapp.com/api/chatbot/' + pno+'/'+ message.text;
     Response answer = await get(url);
     var obj = (jsonDecode(answer.body));
     var chatResponse = obj['chat_response'];

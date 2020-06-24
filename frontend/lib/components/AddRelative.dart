@@ -184,7 +184,7 @@ class _AddRelativeState extends State<AddRelative> {
       print(_relation);
       //show the time picker dialog
       print(url);
-      Map relative = {"name":_name,"relation":_relation,"url":url};
+      Map relative = {"name":_name,"relation":_relation,"patient_dp":url};
       widget.addRelative(relative);
       
     }
