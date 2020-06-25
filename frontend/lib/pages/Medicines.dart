@@ -120,7 +120,7 @@ class _MedicineState extends State<Medicine> {
     Map js = await userInfo(pno);
     //print(js);
     var medicines = js['medicines'];
-    List<MedicineItem> temp = (medicines as List).map((med) => MedicineItem.fromJson(med)).toList();
+    List<MedicineItem> temp = (medicines ==null)?[]:(medicines as List).map((med) => MedicineItem.fromJson(med)).toList();
     return temp;
     
   }

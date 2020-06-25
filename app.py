@@ -84,7 +84,7 @@ def chatbot(number,message):
 
     if intent == 'get_name':
         #todo db call
-        name = per['name']
+        name = per['patient_name']
         chat_response = 'Haha your name is '+name+'\n Hello '+name+'!'
     
     elif intent == 'get_contact':
@@ -107,7 +107,7 @@ def chatbot(number,message):
             'no medicines listed!'
     elif intent == 'get_address':
         #todo db call
-        address = str(per['location']['lat'])+','+str(per['location']['long'])
+        address = str(per['patient_location']['lat'])+','+str(per['location']['long'])
         chat_response = 'You live at '+address
 
     elif intent == 'get_greeting':
