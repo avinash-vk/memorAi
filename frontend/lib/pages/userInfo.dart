@@ -11,7 +11,7 @@ Future<Map> userInfo(phoneNumber) async{
     }
     else{
       Map js = auth['user'];
-      print(js);
+      //print(js);
       return js;
     }
 } 

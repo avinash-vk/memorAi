@@ -41,11 +41,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   var i = 0;
 
-  Future<ChatUser> start() async{
+  /*Future<ChatUser> start() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var pno = prefs.getString('auth_no');
     Map js = await userInfo(pno);
     print(js);
+    
     ChatUser userx = ChatUser(
       name: js['name'],
       firstName: js['name'],
@@ -55,7 +56,7 @@ class _ChatScreenState extends State<ChatScreen> {
       avatar: (js['patient_dp']==null)?"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d":js['patient_dp'],
     );
     return userx;
-  }
+  }*/
   @override
   void initState(){
 
@@ -64,20 +65,21 @@ class _ChatScreenState extends State<ChatScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var pno = prefs.getString('auth_no');
     Map js = await userInfo(pno);
-    print(js);
+    //print(js);
     ChatUser userx = ChatUser(
       name: js['name'],
       firstName: js['name'],
       lastName: js['name'],
-      uid: '1234',
+      uid: pno,
       containerColor: Colors.redAccent,
       avatar: (js['patient_dp']==null)?"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d":js['patient_dp'],
     );
+    
     return userx;
     }).then((ChatUser userx) {
       setState(() {
         user = userx;
-        pno = pno;
+        pno= userx.uid;
         isLoading = false;
       });
     });
@@ -109,7 +111,10 @@ class _ChatScreenState extends State<ChatScreen> {
       messages = [...messages,message];
       print(messages.length);
     });
-    if (i == 0) {
+    print('here');
+    print(pno);
+    final url = 'https://memorai.herokuapp.com/api/chatbot/' + pno+'/'+ message.text;
+    if ( i == 0) {
       systemMessage();
       Timer(Duration(milliseconds: 600), () {
         systemMessage();
@@ -117,7 +122,7 @@ class _ChatScreenState extends State<ChatScreen> {
     } else {
       systemMessage();
     } 
-    final url = 'https://memorai.herokuapp.com/api/chatbot/' + pno+'/'+ message.text;
+    
     Response answer = await get(url);
     var obj = (jsonDecode(answer.body));
     var chatResponse = obj['chat_response'];
@@ -130,7 +135,7 @@ class _ChatScreenState extends State<ChatScreen> {
       print(messages.length);
     });
 
-    if (i == 0) {
+    if ( i == 0) {
       systemMessage();
       Timer(Duration(milliseconds: 600), () {
         systemMessage();

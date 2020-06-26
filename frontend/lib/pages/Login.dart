@@ -30,8 +30,9 @@ class _LoginState extends State<Login> {
         helperText="success";
       });
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('auth', 'true' );
+      prefs.setBool('auth', true );
       prefs.setString('auth_no', phoneNumber);
+      print("Done");
       Navigator.popAndPushNamed(context, 'home');
     }
     

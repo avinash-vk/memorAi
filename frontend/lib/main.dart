@@ -21,7 +21,8 @@ Future<void> main() async{
     // Define the default brightness and colors.
     primaryColor: Colors.redAccent,
     accentColor: Colors.redAccent,),
-    initialRoute: (auth == null)?'loginScreen':'home',
+    initialRoute: (auth == null || auth == false)?'loginScreen':'home',
+    //initialRoute: 'home',
     routes: {
       'loginScreen': (context) => Login(),
       'home' :(context) => Home(),
