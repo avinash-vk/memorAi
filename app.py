@@ -68,9 +68,9 @@ def check_face(number):
     try:
         data = request.json
         relative_group = FaceWithAzure(number)
-        print('here')
+        
         face_id = relative_group.detect_face(data['detect_url'])
-        print('here')
+
         print('faceid',face_id)
         if(face_id != None):
             person_id = relative_group.person_identify(face_id)
