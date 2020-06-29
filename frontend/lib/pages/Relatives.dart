@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/components/AddRelative.dart';
@@ -31,6 +33,29 @@ class RelativeItem{
 }
 }
 
+Future<bool> addRelativeAzure(phoneNumber,relative) async{
+    String url = "https://memorai.herokuapp.com/api/add_relative/"+phoneNumber;
+    Map<String,String> headers = {"Content-type" : "application/json"};
+    Map js = {"data":relative.toJson()}; //ADD OTHER INFO
+    var body = jsonEncode(js);
+    try{
+          var response = await http.post(url,headers:headers,body: body);
+          
+          int code = response.statusCode;
+          print(code);
+          if (code<300){
+              print('success');
+              return true;
+          }
+          else
+            print('error');
+            return false;
+    }
+    catch(Exception){
+        print('error');
+        return false;
+    }
+}
 
 class Relative extends StatefulWidget {
   @override
@@ -94,8 +119,7 @@ class _RelativeState extends State<Relative> {
     
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var pno = prefs.getString('auth_no');
-    
-    bool success = await setRelativesDb(pno,relatives);
+    bool success = await setRelativesDb(pno,relatives) && await addRelativeAzure(pno,ma);
     Fluttertoast.showToast(
           msg: (success)?"The relative was added!":"Oops error occured",
           toastLength: Toast.LENGTH_SHORT,

@@ -3,22 +3,15 @@ from wit import Wit
 import os
 import json
 import pyrebase
+import config as secrets
+from utils import FaceWithAzure
 app = Flask(__name__)
 
 #wit.ai bot
-access_token = 'PQWCP34JWQI3KFAGX3IJGZBDH7JN66LM'
+access_token = secrets.WIT_ACCESS_TOKEN
 
 # Initialize Firestore DB
-config = {
-    "apiKey": 'AIzaSyAY3r-JFmZH2G96JNYz9nLwLkgbUEtnl-0' ,
-    "authDomain": "memorai-920f7.firebaseapp.com",
-    "databaseURL": "https://memorai-920f7.firebaseio.com",
-    "projectId": "memorai-920f7",
-    "storageBucket": "memorai-920f7.appspot.com",
-    "messagingSenderId": "310050900810",
-    "appId": "1:310050900810:web:e00eaa3054f5bfb2238fb3",
-    "measurementId": "G-K71LF47NZ8"
-}
+config = secrets.FIREBASE_CONFIG
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
@@ -30,7 +23,10 @@ def main():
 def createUser():    
     data = request.json
     print(data,type(data))
-    db.child('users').child(data['emergency_pno']).set(data)
+    pno = data['emergency_pno']
+    db.child('users').child(pno).set(data)
+    relative_group = FaceWithAzure(pno)
+    relative_group.create_group()
     return Response({'status':'success'})
 
 @app.route('/api/get_auth_info/<number>')
@@ -50,6 +46,26 @@ def update_medicines(number):
     print(data)
     db.child('users').child(number).update({"medicines": data['data']})
     return Response({'status':'success'}) 
+
+@app.route('/api/add_relative/<number>',methods = ['POST']):
+def sync_relative_azure(number):
+    data = request.json
+    relative_group = FaceWithAzure(number)
+    person_id = relative_group.create_person(name = data['name'],user_data=data['relation'])
+    relative_group.add_image_to_person(person_id,data['patient_dp'])
+    relative_group.train_group()
+    return Response({'status':'success'}) 
+
+@app.route('/api/check_face/<number>',methods = ['POST'])
+def check_face(number):
+    data = request.json
+    relative_group = FaceWithAzure(number)
+    face_id = relative_group.detect_face(data['detect_url'])
+    if(face_id):
+        person_id = relative_group.person_identify(face_id)
+        response = relative_group.person_info(person_id)
+        return {'status':'success','response' : response}
+    return Response({'status':'error'}) 
 
 @app.route('/api/set_relative/<number>',methods = ['POST'])
 def update_relatives(number):
