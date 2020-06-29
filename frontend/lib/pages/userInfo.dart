@@ -65,27 +65,29 @@ Future<bool> setRelativesDb(phoneNumber,relatives) async{
     }
 }
 
-Future<String> identifyPerson(phoneNumber,String detect_url) async{
-    String url = 'https://memorai.herokuapp.com/api/check_face/' + phoneNumber;
+Future<String> identifyPerson(phoneNumber,detectUrl) async{
+    
+    String url = 'http://192.168.1.7:5000/api/check_face/'+phoneNumber;
+    //String url = 'https://memorai.herokuapp.com/api/check_face/' + phoneNumber;
+    print(url);
     Map<String,String> headers = {"Content-type" : "application/json"};
-    Map js = {"data":{"detect_url" : detect_url}}; //ADD OTHER INFO
+    Map js = {"detect_url" : detectUrl}; //ADD OTHER INFO
     var body = json.encode(js);
     try{
           var response = await http.post(url,headers:headers,body: body);
-          
           int code = response.statusCode;
+          Map res = jsonDecode(response.body);
           print(code);
-          if (code<300){
-              print('success');
-              Map res = jsonDecode(response.body);
+          if (code<300 &&  res['status']=='success' ){
+              
               return res['response'];
           }
           else
             print('error');
             return null;
     }
-    catch(Exception){
-        print('error');
+    catch(e){
+        print(e.message);
         return null;
     }
 }

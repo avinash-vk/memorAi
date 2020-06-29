@@ -26,7 +26,9 @@ def createUser():
     print(data,type(data))
     pno = data['emergency_pno']
     db.child('users').child(pno).set(data)
+    print("HERE")
     relative_group = FaceWithAzure(pno)
+    print("HERE")
     relative_group.create_group()
     return Response({'status':'success'})
 
@@ -48,10 +50,13 @@ def update_medicines(number):
     db.child('users').child(number).update({"medicines": data['data']})
     return Response({'status':'success'}) 
 
-@app.route('/api/add_relative/<number>',methods = ['POST']):
+@app.route('/api/add_relative/<number>',methods = ['POST'])
 def sync_relative_azure(number):
     data = request.json
+    print(data)
+    print(number)
     relative_group = FaceWithAzure(number)
+    print("here")
     person_id = relative_group.create_person(name = data['name'],user_data=data['relation'])
     relative_group.add_image_to_person(person_id,data['patient_dp'])
     relative_group.train_group()
@@ -59,14 +64,22 @@ def sync_relative_azure(number):
 
 @app.route('/api/check_face/<number>',methods = ['POST'])
 def check_face(number):
-    data = request.json
-    relative_group = FaceWithAzure(number)
-    face_id = relative_group.detect_face(data['detect_url'])
-    if(face_id):
-        person_id = relative_group.person_identify(face_id)
-        response = relative_group.person_info(person_id)
-        return {'status':'success','response' : response}
-    return Response({'status':'error'}) 
+    print('here')
+    try:
+        data = request.json
+        relative_group = FaceWithAzure(number)
+        print('here')
+        face_id = relative_group.detect_face(data['detect_url'])
+        print('here')
+        print('faceid',face_id)
+        if(face_id != None):
+            person_id = relative_group.person_identify(face_id)
+            response = relative_group.person_info(person_id)
+            return {'status':'success','response' : response}
+        return {'status':'error'}
+    except Exception as e:
+        print(e)
+        return {'status':'error'}
 
 @app.route('/api/set_relative/<number>',methods = ['POST'])
 def update_relatives(number):
@@ -149,7 +162,7 @@ def chatbot(number,message):
     	str_reminder = ' '.join([str(elem) for elem in reminders]) 
     	chat_response = "Your reminders/schedule is:" + str_reminder
     	#print (str_reminder) 
-    elif intent = "identify_person":
+    elif intent == "identify_person":
         chat_response = 'hmm..let me check.Send me a picture of the person.'
     elif sentiment == 'negative':
         chat_response = 'Oh no :( Things are going to get better. Wanna talk to someone?'

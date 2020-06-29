@@ -155,17 +155,14 @@ class _ChatScreenState extends State<ChatScreen> {
       messages = [...messages,message];
       print(messages.length);
     });
-
-    if ( i == 0) {
-      systemMessage();
-      Timer(Duration(milliseconds: 600), () {
-        systemMessage();
-      });
-    } else {
-      systemMessage();
-    } 
-      String person = await identifyPerson(pno,detect_url); 
-      
+      print("Goinf into call");
+      String person = '';
+      try{
+        person = await identifyPerson(pno,detect_url); }
+      catch(Exception){
+        person = 'couldn\'t detect properly';
+      }
+      if (person == null){ person = 'couldn\'t detect properly';}
       final mess = ChatMessage(
           text: person,
           createdAt: DateTime.now(),
@@ -240,7 +237,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     onPressed: () async {
                       final picker = ImagePicker();
                       final img = await picker.getImage(
-                        source: ImageSource.camera,
+                        source: ImageSource.gallery,
                       );
                       File result = File(img.path);
                       if (result != null) {
@@ -264,7 +261,16 @@ class _ChatScreenState extends State<ChatScreen> {
                         
                       }
                     },
-                  )
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.camera),
+                    onPressed: (){
+                      String url = "https://static.toiimg.com/thumb/msid-54559212,width-748,height-499,resizemode=4,imgsize-307081/Bangalore.jpg";
+                      ChatMessage message =
+                            ChatMessage(text: "", user: user, image: url);
+                        onSend(message,detect_url : url);
+                    },
+                  ),
                 ],
                 )
                 

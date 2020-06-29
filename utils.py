@@ -135,7 +135,7 @@ class FaceWithAzure:
             response = requests.get(api_endpoint, headers=self.headers) 
             responseJson = response.json()
             name = responseJson["name"]
-            String resp = ("This Is "+str(name)+',your '+responseJson["userData"])
+            resp = ("This Is "+str(name)+',your '+responseJson["userData"])
             return resp
             
         except Exception as e:

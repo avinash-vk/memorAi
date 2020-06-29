@@ -23,7 +23,7 @@ class _AddRelativeState extends State<AddRelative> {
 
   final picker = ImagePicker();
   Future getImageFromCamera() async {
-    final cameraFile = await picker.getImage(source: ImageSource.camera);
+    final cameraFile = await picker.getImage(source: ImageSource.gallery);
     
     if (cameraFile != null){
     setState(() {
