@@ -178,9 +178,9 @@ def chatbot(number,message):
 
 
 #comment below call for local setup
-# if __name__ == '__app__':
-#     app.run(port=5000) 
+if __name__ == '__app__':
+     app.run(port=5000) 
 
 #Uncomment this for local run
-app.run(host="0.0.0.0",port=5000)  
+#app.run(host="0.0.0.0",port=5000)  
 
