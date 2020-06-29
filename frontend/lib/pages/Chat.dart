@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:frontend/pages/userInfo.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:intl/intl.dart';
 import 'package:dash_chat/dash_chat.dart';
@@ -104,15 +107,12 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  Future<void> onSend(ChatMessage message) async {
-    final question = message;
+  Future<void> onSend(ChatMessage message,{String detect_url = ''}) async {
     setState(() {
       messages = [...messages,message];
       print(messages.length);
     });
     print('here');
-    print(pno);
-    final url = 'https://memorai.herokuapp.com/api/chatbot/' + pno+'/'+ message.text;
     if ( i == 0) {
       systemMessage();
       Timer(Duration(milliseconds: 600), () {
@@ -121,16 +121,38 @@ class _ChatScreenState extends State<ChatScreen> {
     } else {
       systemMessage();
     } 
-    
-    Response answer = await get(url);
-    var obj = (jsonDecode(answer.body));
-    var chatResponse = obj['chat_response'];
-    final botReply = ChatMessage(
-          text: chatResponse,
+    if(detect_url==''){
+      print(pno);
+      final url = 'https://memorai.herokuapp.com/api/chatbot/' + pno+'/'+ message.text;
+      
+      var answer = await http.get(url);
+      var obj = (jsonDecode(answer.body));
+      var chatResponse = obj['chat_response'];
+      final botReply = ChatMessage(
+            text: chatResponse,
+            createdAt: DateTime.now(),
+            user: bot);
+      setState(() {
+        messages = [...messages,botReply];
+        print(messages.length);
+      });
+
+      if ( i == 0) {
+        systemMessage();
+        Timer(Duration(milliseconds: 600), () {
+          systemMessage();
+        });
+      } else {
+        systemMessage();
+      } 
+    }
+    else{
+      final message = ChatMessage(
+          text: 'hmm...let me see',
           createdAt: DateTime.now(),
           user: bot);
-    setState(() {
-      messages = [...messages,botReply];
+      setState(() {
+      messages = [...messages,message];
       print(messages.length);
     });
 
@@ -142,6 +164,25 @@ class _ChatScreenState extends State<ChatScreen> {
     } else {
       systemMessage();
     } 
+      String person = await identifyPerson(pno,detect_url); 
+      
+      final mess = ChatMessage(
+          text: person,
+          createdAt: DateTime.now(),
+          user: bot);
+      setState(() {
+      messages = [...messages,mess];
+      print(messages.length);
+    });
+
+    if ( i == 0) {
+      systemMessage();
+      Timer(Duration(milliseconds: 600), () {
+        systemMessage();
+      });
+
+    }
+    }
   }
 
   @override
@@ -189,10 +230,45 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 
                 onLoadEarlier: () {
-                  print("laoding...");
+                  print("loading...");
                 },
                 shouldShowLoadEarlier: false,
-                showTraillingBeforeSend: true,));
+                showTraillingBeforeSend: true,
+                trailing: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.photo),
+                    onPressed: () async {
+                      final picker = ImagePicker();
+                      final img = await picker.getImage(
+                        source: ImageSource.camera,
+                      );
+                      File result = File(img.path);
+                      if (result != null) {
+                        final StorageReference storageRef =
+                            FirebaseStorage.instance.ref().child("chat_images");
+
+                        StorageUploadTask uploadTask = storageRef.putFile(
+                          result,
+                          StorageMetadata(
+                            contentType: 'image/jpg',
+                          ),
+                        );
+                        StorageTaskSnapshot download =
+                            await uploadTask.onComplete;
+
+                        String url = await download.ref.getDownloadURL();
+
+                        ChatMessage message =
+                            ChatMessage(text: "", user: user, image: url);
+                        onSend(message,detect_url : url);
+                        
+                      }
+                    },
+                  )
+                ],
+                )
+                
+                );
 
    
           

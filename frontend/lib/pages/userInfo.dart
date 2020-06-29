@@ -48,7 +48,7 @@ Future<bool> setRelativesDb(phoneNumber,relatives) async{
     var body = json.encode(js);
     try{
           var response = await http.post(url,headers:headers,body: body);
-          
+         
           int code = response.statusCode;
           print(code);
           if (code<300){
@@ -57,11 +57,35 @@ Future<bool> setRelativesDb(phoneNumber,relatives) async{
           }
           else
             print('error');
-            return false;
+            return null;
     }
     catch(Exception){
         print('error');
-        return false;
+        return null;
     }
 }
 
+Future<String> identifyPerson(phoneNumber,String detect_url) async{
+    String url = 'https://memorai.herokuapp.com/api/check_face/' + phoneNumber;
+    Map<String,String> headers = {"Content-type" : "application/json"};
+    Map js = {"data":{"detect_url" : detect_url}}; //ADD OTHER INFO
+    var body = json.encode(js);
+    try{
+          var response = await http.post(url,headers:headers,body: body);
+          
+          int code = response.statusCode;
+          print(code);
+          if (code<300){
+              print('success');
+              Map res = jsonDecode(response.body);
+              return res['response'];
+          }
+          else
+            print('error');
+            return null;
+    }
+    catch(Exception){
+        print('error');
+        return null;
+    }
+}

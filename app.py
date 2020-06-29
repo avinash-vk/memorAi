@@ -149,10 +149,11 @@ def chatbot(number,message):
     	str_reminder = ' '.join([str(elem) for elem in reminders]) 
     	chat_response = "Your reminders/schedule is:" + str_reminder
     	#print (str_reminder) 
-
+    elif intent = "identify_person":
+        chat_response = 'hmm..let me check.Send me a picture of the person.'
     elif sentiment == 'negative':
         chat_response = 'Oh no :( Things are going to get better. Wanna talk to someone?'
-    
+
     response = dict()
     response['bot_response'] = bot_response
     response['chat_response'] = chat_response
