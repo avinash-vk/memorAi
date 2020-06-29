@@ -10,6 +10,7 @@ app = Flask(__name__)
 #wit.ai bot
 access_token = secrets.WIT_ACCESS_TOKEN
 
+reminders = [] # Temporary list to store reminders
 # Initialize Firestore DB
 config = secrets.FIREBASE_CONFIG
 firebase = pyrebase.initialize_app(config)
@@ -90,6 +91,7 @@ def chatbot(number,message):
     notif = 'no'
     reminder= ''
     dt = ''
+   
     if bot_response['intents']:
         intent = bot_response['intents'][0]['name']
 
@@ -140,6 +142,13 @@ def chatbot(number,message):
             chat_response = "Reminder set : "+reminder+" at "+time+" on "+date
             notif='yes'
             dt = date+' '+time
+            reminders.append(" "+reminder+" at "+time+" on "+date+",")
+            #print (reminders)
+
+    elif intent == 'set_reminder':
+    	str_reminder = ' '.join([str(elem) for elem in reminders]) 
+    	chat_response = "Your reminders/schedule is:" + str_reminder
+    	#print (str_reminder) 
 
     elif sentiment == 'negative':
         chat_response = 'Oh no :( Things are going to get better. Wanna talk to someone?'
@@ -155,9 +164,9 @@ def chatbot(number,message):
 
 
 #comment below call for local setup
-if __name__ == '__app__':
-    app.run(port=5000) 
+# if __name__ == '__app__':
+#     app.run(port=5000) 
 
 #Uncomment this for local run
-#app.run(host="0.0.0.0",port=5000)  
+app.run(host="0.0.0.0",port=5000)  
 
