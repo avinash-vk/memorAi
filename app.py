@@ -5,6 +5,7 @@ import json
 import pyrebase
 import config as secrets
 from utils import FaceWithAzure
+from geopy.geocoders import Nominatim
 app = Flask(__name__)
 
 #wit.ai bot
@@ -16,6 +17,21 @@ config = secrets.FIREBASE_CONFIG
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
+
+def get_address_from_coordinates(coor):
+    locator = Nominatim(user_agent="myGeocoder")
+    location = locator.reverse(coor)
+    print(coor)
+    print(location)
+    return location
+@app.route('/loctest')
+def loctest():
+    data = db.child('users').child('789').get()
+    data = dict(data.val())
+    coor = str(data['patient_location']['loc'])+", "+str(data['patient_location']['lat'])
+    ans = get_address_from_coordinates(coor)
+    ans=''
+    return {'ans':ans}
 @app.route('/')
 def main():
     return "welcome to memorAi"
@@ -25,11 +41,15 @@ def createUser():
     data = request.json
     print(data,type(data))
     pno = data['emergency_pno']
+    coor = str(data['patient_location']['loc'])+", "+str(data['patient_location']['lat'])
+    address = get_address_from_coordinates(coor)
+    data['address'] = address
     db.child('users').child(pno).set(data)
     print("HERE")
     relative_group = FaceWithAzure(pno)
     print("HERE")
     relative_group.create_group()
+
     return Response({'status':'success'})
 
 @app.route('/api/get_auth_info/<number>')
@@ -141,7 +161,7 @@ def chatbot(number,message):
             'no medicines listed!'
     elif intent == 'get_address':
         #todo db call
-        address = str(per['patient_location']['lat'])+','+str(per['location']['long'])
+        address = per['address']
         chat_response = 'You live at '+address
 
     elif intent == 'get_greeting':
