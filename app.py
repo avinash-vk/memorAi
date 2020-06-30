@@ -21,8 +21,8 @@ def get_address_from_coordinates(coor):
     locator = Nominatim(user_agent="myGeocoder")
     location = locator.reverse(coor)
     print(coor)
-    print(location)
-    return location
+    print(location,type(location))
+    return str(location)
 
 @app.route('/loctest')
 def loctest():
@@ -30,7 +30,6 @@ def loctest():
     data = dict(data.val())
     coor = str(data['patient_location']['loc'])+", "+str(data['patient_location']['lat'])
     ans = get_address_from_coordinates(coor)
-    ans=''
     return {'ans':ans}
 
 @app.route('/')
