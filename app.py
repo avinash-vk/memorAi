@@ -10,7 +10,7 @@ app = Flask(__name__)
 #wit.ai bot
 access_token = secrets.WIT_ACCESS_TOKEN
 
-reminders = [] # Temporary list to store reminders
+# Temporary list to store reminders
 # Initialize Firestore DB
 config = secrets.FIREBASE_CONFIG
 firebase = pyrebase.initialize_app(config)
@@ -102,9 +102,12 @@ def chatbot(number,message):
     intent = ''
     sentiment = ''
     notif = 'no'
-    reminder= ''
     dt = ''
-   
+
+    reminders = []
+    if 'reminders' in per.keys():
+        reminders = per['reminders']
+        
     if bot_response['intents']:
         intent = bot_response['intents'][0]['name']
 
@@ -145,9 +148,7 @@ def chatbot(number,message):
         chat_response = 'Hello, hope your day is going alright!'  
         #and other such greetings likewise -> can be finalized later
     elif intent == 'get_reminder':
-    	#A couple of if statements to check if datetime and reminder entities of get_reminder exist
-    	#Inside these if statements, we could append the datetime and reminder entities to the reminder list
-        if entity["wit$datetime:datetime"] and entity["wit$reminder:reminder"]:
+    	if entity["wit$datetime:datetime"] and entity["wit$reminder:reminder"]:
             obj =  entity["wit$datetime:datetime"][0]["value"]
             date = obj[:10]
             time = obj[11:16]
@@ -156,12 +157,14 @@ def chatbot(number,message):
             notif='yes'
             dt = date+' '+time
             reminders.append(" "+reminder+" at "+time+" on "+date+",")
-            #print (reminders)
+            db.child('users').child(number).update({"reminders": reminders})
 
     elif intent == 'set_reminder':
-    	str_reminder = ' '.join([str(elem) for elem in reminders]) 
-    	chat_response = "Your reminders/schedule is:" + str_reminder
-    	#print (str_reminder) 
+        if reminders == []:
+            chat_response = 'you dont have any reminders scheduled.'
+        else:
+            str_reminder = ' '.join([str(elem) for elem in reminders])
+            chat_response = "Your reminders/schedule is:" + str_reminder
     elif intent == "identify_person":
         chat_response = 'hmm..let me check.Send me a picture of the person.'
     elif sentiment == 'negative':

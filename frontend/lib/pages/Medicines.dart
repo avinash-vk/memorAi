@@ -69,7 +69,7 @@ class _MedicineState extends State<Medicine> {
     setState(() {
       medicines = medicines;
     });
-    notificationManager.showNotificationDaily(id, medicine['name'], medicine['dose'], medicine['hour'], medicine['minute']);
+    notificationManager.showNotificationDaily(id, medicine['name'], medicine['dose'], medicine['hour'], medicine['min']);
   }
   void buildBottomSheet(double deviceHeight) async {
     var medicineId = await showModalBottomSheet(
