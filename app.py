@@ -163,8 +163,8 @@ def chatbot(number,message):
         if reminders == []:
             chat_response = 'you dont have any reminders scheduled.'
         else:
-            str_reminder = ' '.join([str(elem) for elem in reminders])
-            chat_response = "Your reminders/schedule is:" + str_reminder
+            str_reminder = '\n'.join([str(elem) for elem in reminders])
+            chat_response = "Your reminders/schedule is:\n" + str_reminder
     elif intent == "identify_person":
         chat_response = 'hmm..let me check.Send me a picture of the person.'
     elif sentiment == 'negative':
@@ -173,9 +173,7 @@ def chatbot(number,message):
     response = dict()
     response['bot_response'] = bot_response
     response['chat_response'] = chat_response
-    response['notif'] = notif
-    response['dt'] = dt
-    response['reminder'] = 'You have to '+reminder
+    
     return response
 
 

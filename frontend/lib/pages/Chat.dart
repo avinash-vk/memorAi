@@ -123,7 +123,7 @@ class _ChatScreenState extends State<ChatScreen> {
     } 
     if(detect_url==''){
       print(pno);
-      final url = 'https://memorai.herokuapp.com/api/chatbot/' + pno+'/'+ message.text;
+      final url = 'http://192.168.1.7:5000/api/chatbot/' + pno+'/'+ message.text;
       
       var answer = await http.get(url);
       var obj = (jsonDecode(answer.body));
