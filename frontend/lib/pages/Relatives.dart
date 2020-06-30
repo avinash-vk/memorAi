@@ -34,8 +34,8 @@ class RelativeItem{
 }
 
 Future<bool> addRelativeAzure(phoneNumber,relative) async{
-    String url = "http://192.168.1.7:5000/api/add_relative/"+phoneNumber;
-    //String url = "https://memorai.herokuapp.com/api/add_relative/"+phoneNumber;
+    //String url = "http://192.168.1.7:5000/api/add_relative/"+phoneNumber;
+    String url = "https://memorai.herokuapp.com/api/add_relative/"+phoneNumber;
     Map<String,String> headers = {"Content-type" : "application/json"};
     Map js = relative; //ADD OTHER INFO
     var body = jsonEncode(js);
