@@ -6,6 +6,8 @@ click==7.1.2
 firebase-admin==4.3.0
 Flask==1.1.2
 gcloud==0.18.3
+geographiclib==1.50
+geopy==2.0.0
 google-api-core==1.21.0
 google-api-python-client==1.9.3
 google-auth==1.18.0
