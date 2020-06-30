@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorai</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <style>
+        body{
+            scroll-behavior: smooth;
+            padding-top:15px;
+            padding-left:30px;
+            padding-right: 30px;
+            padding-bottom: 60px;
+            background-color: black;
+            color:aliceblue;
+            height: 100%;
+            background-image: url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+        }
+        .container{
+            padding:20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: relative;
+            
+        }
+        .heading{
+            font-size: 48px;  
+        }
+        .description{
+            font-size: 20px;
+            text-align: center;
+        }
+        .text-design{
+            color: rgb(178, 3, 3);
+        }
+        .container{
+            
+            height: 100vh !important;
+            scroll-snap-align: center;
+        }
+        .vertical-center{
+            vertical-align: middle !important;
+        }
+        .links{
+            background-color: rgba(255, 255, 255, 0.2);
+            
+        }
+        .logo-image{
+            opacity: 0.6;
+        }
+        .btn{
+            padding-bottom: 60px !important;
+            width:60% !important;
+        }
+        .btn:hover{
+            box-shadow: 1px 1px 8px 1px royalblue;
+        }
+        .white-text{
+            padding:10px;
+            background-color:rgba(255, 255, 255, 0.2) ;
+        }
+        .white-text:hover{
+            box-shadow: 1px 1px 8px 1px royalblue;
+        }
+        .white-text-color{
+            color: white;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <div class="navbar">
+        <ul>
+            <li style="display: inline-block;"><h5>Memor<span class='text-design'>Ai</span>.</h5></li>
+            <li style="display: inline-block;" class="right"><br/><a class="white-text" href="./test">Test the bot</a></li>
+        </ul>
+    </div><br/>
+    <div class="start container vertical-center">
+    
+        <div class="heading vertical-center">
+            <p style="text-align: center;">Help your loved ones effected with <span class='text-design'>alzheimers</span> remember better.</p>
+        </div>
+        <div class="description vertical-center">
+            Memorai is an application that assists those effected with memory loss to keep track of things and make their lives easier.
+        </div><br/><br/><br />
+
+    </div>
+    <div class="demo container ">
+        <div class="demo-video center vertical-center">
+            <br/>
+            <div class="heading">
+                What does memor<span class = "text-design">Ai</span> do?
+            </div><br/><br/>
+            <iframe 
+                width="600" 
+                height="350" 
+                src="https://www.youtube.com/embed/OiIQIpNG7hc?list=RDMMOiIQIpNG7hc" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+            >
+            </iframe>
+        </div>
+    </div>
+    <div class="container links">
+        <div class="row">
+            <div class="col s12 center">
+            <!--img class="responseive-img" src = "../static/spaceman.png" style="display: inline;z-index:-1;" class="logo-image"/-->
+            <img src="{{url_for('static',filename='spaceman.png')}}" style="display: inline;z-index:-1;" class="logo-image" alt="">
+            </div></div>
+        <div class="row">
+        <div class="col s6 center">
+            <a class="download-apk btn black">
+            <img src="https://blu-vine.com/wp-content/uploads/2019/04/android-transparent.png" alt="" class="circle left responsive-img" height="50px" width='50px' style = 'display:inline;'>
+            <h5 class="center white-text-color" style="display: inline-block;">GET APK</h5>
+        </a>   
+        </div>
+                
+            <div class="col s6 center">
+                <a href = "https://github.com/avinash-vk/memorai" class="github btn black">
+                    <img src="https://www.kindpng.com/picc/m/255-2558173_github-logo-png-transparent-png.png" alt="" class="circle left responsive-img" height="50px" width='50px' style = 'display:inline;'>
+                    <h5 class="center white-text-color" style="display: inline-block;">Github</h5>
+                </a></div>
+            </div>
+        </div>   
+    </div>
+</body>
+
+</html>

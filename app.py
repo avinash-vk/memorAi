@@ -35,7 +35,7 @@ def loctest():
 
 @app.route('/')
 def main():
-    return "welcome to memorAi"
+    return render_template('index.html')
 
 @app.route('/api/createUser',methods = ['POST'])
 def createUser():    
@@ -198,7 +198,7 @@ def chatbot(number,message):
 
 #comment below call for local setup
 if __name__ == '__app__':
-     app.run(port=5000) 
+     app.run() 
 
 #Uncomment this for local run
 #app.run(host="0.0.0.0",port=5000)  

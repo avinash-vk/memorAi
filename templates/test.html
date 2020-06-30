@@ -1,23 +1,155 @@
-<script>
-    const callApi = () => {
-        var message = document.getElementById('message').value
-        var host = window.location.host;
-        var resp = document.getElementById('response')
-        resp.innerHTML="Loading.."
-        console.log("hey")
-        fetch('/api/chatbot/12345/'+message)
-        .then(res => res.json())
-        .then((res) =>{
-            console.log(res)
-            resp.innerHTML = JSON.stringify(res)
-        })
-    }
-</script>
-
-<form>
-    <h1>Test your bot</h1><br/>
-    <input id='message' type='text' />
-    <button type='button' onclick="callApi()">submit</button>
-    <p id = "response"></p>
-</form>
-
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Memorai</title>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+        <style>
+            body{
+                scroll-behavior: smooth;
+                padding-top:15px;
+                padding-left:30px;
+                padding-right: 30px;
+                padding-bottom: 60px;
+                background-color: black;
+                color:aliceblue;
+                height: 100%;
+                background-image: url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+            }
+            .container{
+                padding:20px;
+                background-color: rgba(0, 0, 0,1);
+                position: relative;
+                
+            }
+            a:hover{
+                cursor: pointer;
+            }
+            .heading{
+                font-size: 48px;  
+            }
+            .description{
+                font-size: 20px;
+                text-align: center;
+            }
+            .text-design{
+                color: rgb(178, 3, 3);
+            }
+            .vertical-center{
+                vertical-align: middle !important;
+            }
+            .links{
+                background-color: rgba(255, 255, 255, 0.2);
+                
+            }
+            .logo-image{
+                opacity: 0.6;
+            }
+            .input-field{
+                padding:20px !important;
+               background-color:rgba(255, 255, 255, 0.2);
+               
+            }
+            .input-field input{
+                color:seashell !important;
+            }
+            .input-field input:focus{
+                border-bottom: 1px solid slateblue !important;
+            }
+            .btn:hover{
+                box-shadow: 1px 0px 8px 1px white;
+            }
+            .white-text{
+                padding:10px;
+                background-color:rgba(255, 255, 255, 0.2) !important;
+            }
+            .white-text:hover{
+                box-shadow: 1px 1px 8px 1px royalblue;
+            }
+            .output{
+                margin-left:40px;
+                font-size: 20px;
+            }
+            .active-op{
+                color:red
+            }
+        </style>
+    
+    
+    
+    </head>
+<body>
+    <script>
+        const callApi = () => {
+            var message = document.getElementById('message').value
+            var host = window.location.host;
+            var resp = document.getElementById('response-json')
+            var bot_reply = document.getElementById('bot_reply')
+            resp.innerHTML="Loading.."
+            bot_reply.innerHTML = "Loading.."
+            console.log("hey")
+            fetch('/api/chatbot/12345/'+message)
+            .then(res => res.json())
+            .then((res) =>{
+                console.log(res)
+                resp.innerHTML = JSON.stringify(res)
+                bot_reply.innerHTML= String(res['chat_response'])
+            })
+        }
+        const toggleOutput = (id) =>{
+            var bot = document.getElementById('bot')
+            var json = document.getElementById('json')
+            var source = document.getElementById(id);
+            var target=''
+            if (source.id=='bot-trigger'){
+                target= document.getElementById('json-trigger')
+            }
+            else{
+                target = document.getElementById('bot-trigger')
+            }
+            
+            if(id== 'json-trigger' && target.classList.contains('active-op')){
+                target.classList.remove('active-op');
+                source.classList.add('active-op');
+                bot.style.display = "none";
+                json.style.display = "block";
+            }
+            else if(id== 'bot-trigger' && target.classList.contains('active-op')){
+                target.classList.remove('active-op');
+                source.classList.add('active-op');
+                json.style.display = "none";
+                bot.style.display = "block";
+            }
+        }
+    </script>
+    <li style="display: inline-block;" class=""><br/><a class="white-text" href="/">Back to home</a></li>
+        
+    <form>
+        <h1>Test the bot</h1><br/>
+        <div class="input-field">
+        <input placeholder="ask the bot what you want :D" id='message' type='text' /></div>
+        <button type='button' class="btn blue" onclick="callApi()">submit</button>
+        
+    </form>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <a class='output active-op' id = 'bot-trigger' onclick="toggleOutput('bot-trigger')">BOT-RESPONSE</a>
+        <a class='output' id = 'json-trigger' onclick="toggleOutput('json-trigger')">JSON</a>
+        <hr>
+        <div class="mes" id='json' style="display: none;">
+            <p id = "response-json">No json response</p>
+        </div>
+        <div class="js" id='bot'>
+            <p id = "bot_reply">No bot response</p>
+        </div>
+    </div>
+</body>
+</html>
