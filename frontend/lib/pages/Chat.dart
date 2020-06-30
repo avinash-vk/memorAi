@@ -36,6 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final ChatUser bot = ChatUser(
     name: "BOT",
     uid: "25649654",
+    avatar: 'https://images.vexels.com/media/users/3/152299/isolated/preview/4f63af6a16633f2bfd29063205f2882c-astronaut-flying-cartoon-by-vexels.png',
   );
 
   List<ChatMessage> messages = List<ChatMessage>();
@@ -43,22 +44,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   var i = 0;
 
-  /*Future<ChatUser> start() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var pno = prefs.getString('auth_no');
-    Map js = await userInfo(pno);
-    print(js);
-    
-    ChatUser userx = ChatUser(
-      name: js['name'],
-      firstName: js['name'],
-      lastName: js['name'],
-      uid: '1234',
-      containerColor: Colors.redAccent,
-      avatar: (js['patient_dp']==null)?"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d":js['patient_dp'],
-    );
-    return userx;
-  }*/
   @override
   void initState(){
 
@@ -123,7 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
     } 
     if(detect_url==''){
       print(pno);
-      final url = 'http://192.168.1.7:5000/api/chatbot/' + pno+'/'+ message.text;
+      final url = 'https://memorai.herokuapp.com/api/chatbot/' + pno+'/'+ message.text;
       
       var answer = await http.get(url);
       var obj = (jsonDecode(answer.body));

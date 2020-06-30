@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/Dashboard.dart';
+import 'package:frontend/pages/Lost.dart';
 import 'package:frontend/pages/Medicines.dart';
 import 'package:frontend/pages/Relatives.dart';
 import 'package:frontend/pages/registration/ImageReg.dart';
@@ -34,6 +35,7 @@ Future<void> main() async{
       'medicine':(context) => Medicine(),
       'relative':(context) => Relative(),
       'memory':(context) => Memory(),
+      'lost':(context)=>Lost(),
     }
   )
 );

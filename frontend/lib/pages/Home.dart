@@ -56,85 +56,65 @@ class Home extends StatelessWidget {
           ]
         ),
       ),
-      body: Padding(
+      body:SingleChildScrollView(
+         child:Padding(
           padding: const EdgeInsets.fromLTRB(30, 40, 40, 40),
           child: Column(children: <Widget>[
             Text(
-              'Hello fellow person, be safe, be aware, and memorize.',
+              'Hello fellow person\n',
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.grey[800],
                 letterSpacing: 2.0,
+                fontSize: 24
               ),
-            ),
-            Divider(
-              height: 86,
-              color: Colors.grey,
             ),
             Text(
-              'Test:',
+              'be safe, be aware, and memoraize. I know times are hard, feel free to chat with me, i promise to help you out in any situation.\n',
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.grey[800],
                 letterSpacing: 2.0,
+                fontSize: 16
               ),
             ),
-            SizedBox(height: 10),
-            RaisedButton(onPressed: (){
-              Navigator.pushNamed(context, 'memory');
-            },
-              color: Colors.redAccent,
-              child : Text(
-                'Memorize',
-                style:TextStyle(color:Colors.white)
-              ),
-            ), 
-
             Divider(
-              height: 85,
+              height: 40,
               color: Colors.grey,
             ),
-
-            Text(
-              'Who\'s this?',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 2.0,
-              ),
-            ),
-            SizedBox(height: 10),
-            RaisedButton(onPressed: (){
-            },
-              color: Colors.redAccent,
-              child : Text(
-                'open cam',
-                style:TextStyle(color:Colors.white)
-              ),
-            ), 
-
-            Divider(
-              height: 85,
-              color: Colors.grey,
-            ),
+           
 
             Text(
               'I\'m lost',
               style: TextStyle(
                 color: Colors.grey,
                 letterSpacing: 2.0,
+                fontSize: 24
               ),
             ),
             SizedBox(height: 10),
             RaisedButton(onPressed: (){
-             
+             Navigator.pushNamed(context, 'lost');
             },
+          
               color: Colors.redAccent,
               child : Text(
-                'HeLp me',
+                'Help me',
                 style:TextStyle(color:Colors.white)
               ),
             ),
-
-          ],)  
-      ),
+            SizedBox(height: 100,),
+            Image(image: AssetImage('images/spaceman.png'),height:250,width:250),
+            SizedBox(height: 60,),
+            Row(children: <Widget>[
+            SizedBox(width: 175,),
+            Text('chat with me >',
+              style:TextStyle(
+                fontSize: 20,
+                color: Colors.grey,
+              )
+            ),
+            ],),
+        ],),
+      ),),
       floatingActionButton: FloatingActionButton(
         
         onPressed: (){

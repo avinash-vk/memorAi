@@ -66,6 +66,7 @@ class Relative extends StatefulWidget {
 class _RelativeState extends State<Relative> {
   List<RelativeItem> relatives = [];
   bool isLoading = true;
+
   Widget relative(RelativeItem relativeName,int index){
     return Container(
       padding: EdgeInsets.all(10),
@@ -87,8 +88,9 @@ class _RelativeState extends State<Relative> {
                 radius: 40.0,
               ),
             SizedBox(width: 50,),
-            Text(relativeName.name,style: TextStyle(color: Colors.white),),
-            Text(relativeName.relation,style: TextStyle(color: Colors.white),),
+            Text(relativeName.name,style: TextStyle(color: Colors.white,fontSize: 25,),),
+            SizedBox(width: 50,),
+            Text(relativeName.relation,style: TextStyle(color: Colors.white)),
       
           ],)
           

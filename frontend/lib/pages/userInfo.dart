@@ -66,8 +66,8 @@ Future<bool> setRelativesDb(phoneNumber,relatives) async{
 
 Future<String> identifyPerson(phoneNumber,detectUrl) async{
     
-    String url = 'http://192.168.1.7:5000/api/check_face/'+phoneNumber;
-    //String url = 'https://memorai.herokuapp.com/api/check_face/' + phoneNumber;
+    //String url = 'http://192.168.1.7:5000/api/check_face/'+phoneNumber;
+    String url = 'https://memorai.herokuapp.com/api/check_face/' + phoneNumber;
     print(url);
     Map<String,String> headers = {"Content-type" : "application/json"};
     Map js = {"detect_url" : detectUrl}; //ADD OTHER INFO
