@@ -17,13 +17,13 @@ config = secrets.FIREBASE_CONFIG
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
-
 def get_address_from_coordinates(coor):
     locator = Nominatim(user_agent="myGeocoder")
     location = locator.reverse(coor)
     print(coor)
     print(location)
     return location
+
 @app.route('/loctest')
 def loctest():
     data = db.child('users').child('789').get()
@@ -32,6 +32,7 @@ def loctest():
     ans = get_address_from_coordinates(coor)
     ans=''
     return {'ans':ans}
+
 @app.route('/')
 def main():
     return "welcome to memorAi"
@@ -39,15 +40,12 @@ def main():
 @app.route('/api/createUser',methods = ['POST'])
 def createUser():    
     data = request.json
-    print(data,type(data))
     pno = data['emergency_pno']
     coor = str(data['patient_location']['loc'])+", "+str(data['patient_location']['lat'])
     address = get_address_from_coordinates(coor)
     data['address'] = address
     db.child('users').child(pno).set(data)
-    print("HERE")
     relative_group = FaceWithAzure(pno)
-    print("HERE")
     relative_group.create_group()
 
     return Response({'status':'success'})
@@ -199,8 +197,8 @@ def chatbot(number,message):
 
 
 #comment below call for local setup
-#if __name__ == '__app__':
-#     app.run(port=5000) 
+if __name__ == '__app__':
+     app.run(port=5000) 
 
 #Uncomment this for local run
-app.run(host="0.0.0.0",port=5000)  
+#app.run(host="0.0.0.0",port=5000)  
