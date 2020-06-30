@@ -1,21 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
+import 'package:frontend/pages/userInfo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
   
+  @override
+  _DashboardState createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  Map info;
+  bool loading = true;
+  Future<Map> start() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var pno = prefs.getString('auth_no');
+    Map js = await userInfo(pno);
+    return js;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    start().then((js){
+      setState(() {
+        info = js;
+        loading=false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(),
-      body: Padding(
+      body: (loading ==true) ? Container() :Padding(
         padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Center(
               child: CircleAvatar(
-                backgroundImage: NetworkImage("https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"),
+                backgroundImage: NetworkImage(info['patient_dp']),
                 radius: 40.0,
               ),
             ),
@@ -32,7 +59,7 @@ class Dashboard extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              'Joe',
+              info['patient_name'],
               style: TextStyle(
                 color: Colors.black54,
                 letterSpacing: 2.0,
@@ -50,7 +77,7 @@ class Dashboard extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              '9999966777',
+              info['emergency_pno'],
               style: TextStyle(
                 color: Colors.black54,
                 letterSpacing: 2.0,
