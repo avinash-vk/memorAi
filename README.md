@@ -25,14 +25,15 @@ flutter run
 - Download [pip](https://pip.pypa.io/en/stable/installing/)
 - Download [python 3](https://www.python.org/downloads/)
 - Create and activate your virtual environment 
-- Make sure to make changes in app.py if the app is running in a development environment
+- Create a config.py file in the root directory, and fill in with the following contents:
 - From the root directory run:
 ```bash
     pip install -r requirements.txt
-    python app.py
+    flask run
 ```
 - navigate to 127.0.0.1:5000 and your app should be running there.
 
-**backend url** : https://memorai.herokuapp.com/
-
+**Get the app** : https://memorai.herokuapp.com/
 *To test the chatbot go to*: https://memorai.herokuapp.com/test
+
+**To view the app demo go to**:  https://youtu.be/VaIxt_ZYBwo
