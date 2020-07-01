@@ -25,7 +25,7 @@ flutter run
 - Download [pip](https://pip.pypa.io/en/stable/installing/)
 - Download [python 3](https://www.python.org/downloads/)
 - Create and activate your virtual environment 
-- Create a config.py file in the root directory, and fill in with the following contents:
+- Update config.py
 - From the root directory run:
 ```bash
     pip install -r requirements.txt
