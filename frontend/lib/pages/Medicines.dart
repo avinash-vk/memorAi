@@ -97,7 +97,7 @@ class _MedicineState extends State<Medicine> {
         //borderRadius: BorderRadius.circular(12),
       ),
       child:ListTile(
-        title:Text('hello'+medicineName.name,style: TextStyle(color: Colors.white),),
+        title:Text(medicineName.name,style: TextStyle(color: Colors.white),),
       )
       
     );
