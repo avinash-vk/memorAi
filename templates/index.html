@@ -71,6 +71,14 @@
         .white-text-color{
             color: white;
         }
+        .top-modal{
+            background-color: black !important;
+            height: 80vh;
+            width: 60vh;
+        }
+        .img-qr{
+            height: 40vh !important;
+        }
     </style>
 
 
@@ -78,6 +86,15 @@
 </head>
 
 <body>
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+        });
+        const DownloadApk = () => {
+            window.open('https://memorai.herokuapp.com/download/apk',"_blank");
+        }
+    </script>
     <div class="navbar">
         <ul>
             <li style="display: inline-block;"><h5>Memor<span class='text-design'>Ai</span>.</h5></li>
@@ -103,7 +120,7 @@
             <iframe 
                 width="600" 
                 height="350" 
-                src="https://www.youtube.com/embed/OiIQIpNG7hc?list=RDMMOiIQIpNG7hc" 
+                src="https://www.youtube.com/embed/VaIxt_ZYBwo" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen
@@ -118,19 +135,34 @@
             <img src="{{url_for('static',filename='spaceman.png')}}" style="display: inline;z-index:-1;" class="logo-image" alt="">
             </div></div>
         <div class="row">
-        <div class="col s6 center">
-            <a class="download-apk btn black">
-            <img src="https://blu-vine.com/wp-content/uploads/2019/04/android-transparent.png" alt="" class="circle left responsive-img" height="50px" width='50px' style = 'display:inline;'>
-            <h5 class="center white-text-color" style="display: inline-block;">GET APK</h5>
-        </a>   
-        </div>
+            <div class="col s6 center">
+                <a class="download-apk btn black modal-trigger"  href="#modal1">
+                <img src="https://blu-vine.com/wp-content/uploads/2019/04/android-transparent.png" alt="" class="circle left responsive-img" height="50px" width='50px' style = 'display:inline;'>
+                <h5 class="center white-text-color" style="display: inline-block;">GET APK</h5>
+                </a>   
+            </div>
                 
             <div class="col s6 center">
                 <a href = "https://github.com/avinash-vk/memorai" class="github btn black">
                     <img src="https://www.kindpng.com/picc/m/255-2558173_github-logo-png-transparent-png.png" alt="" class="circle left responsive-img" height="50px" width='50px' style = 'display:inline;'>
                     <h5 class="center white-text-color" style="display: inline-block;">Github</h5>
-                </a></div>
+                </a>
             </div>
+        </div>
+        <div id="modal1" class="modal top-modal">
+            <div class="modal-content center">
+                <!--img src="../static/memorai-qr.png" class='img-qr responsive-img' alt=""-->
+                <img src="{{url_for('static',filename='memorai-qr.png')}}" class='img-qr responsive-img'>
+              
+                <br/>
+                <br/>
+                <hr style="color: aliceblue;"/>
+                
+                <br/>
+                <button class="btn green" onclick="DownloadApk()"><h5>Download APK</h5></button>
+            </div>
+            
+          </div>
         </div>   
     </div>
 </body>

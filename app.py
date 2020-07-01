@@ -1,4 +1,4 @@
-from flask import Flask,jsonify,request,Response,render_template
+from flask import Flask,jsonify,request,Response,render_template,send_file
 from wit import Wit
 import os
 import json
@@ -78,6 +78,10 @@ def sync_relative_azure(number):
     relative_group.add_image_to_person(person_id,data['patient_dp'])
     relative_group.train_group()
     return Response({'status':'success'}) 
+
+@app.route('/download/apk')
+def download_apk():
+    return send_file('memorai.apk',as_attachment=True)
 
 @app.route('/api/check_face/<number>',methods = ['POST'])
 def check_face(number):
