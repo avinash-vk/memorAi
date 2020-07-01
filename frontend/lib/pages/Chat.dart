@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:frontend/pages/userInfo.dart';
+import 'package:frontend/utils/apiCalls.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';

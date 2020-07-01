@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
-import 'package:frontend/pages/userInfo.dart';
+import 'package:frontend/utils/apiCalls.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Lost extends StatefulWidget {

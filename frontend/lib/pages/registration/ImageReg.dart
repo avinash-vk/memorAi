@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:frontend/components/firebaseImageUpload.dart';
+import 'package:frontend/utils/firebaseImageUpload.dart';
 
 class ImageReg extends StatefulWidget {
   @override

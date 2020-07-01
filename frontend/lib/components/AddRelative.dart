@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/components/firebaseImageUpload.dart';
+import 'package:frontend/utils/firebaseImageUpload.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddRelative extends StatefulWidget {

@@ -1,12 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/components/Appbar.dart';
 import 'package:frontend/components/AddMedicine.dart';
-import 'package:frontend/components/notifications.dart';
-import 'package:frontend/pages/userInfo.dart';
+import 'package:frontend/utils/notifications.dart';
+import 'package:frontend/utils/apiCalls.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class MedicineItem{
   String name;
