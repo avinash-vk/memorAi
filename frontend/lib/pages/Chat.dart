@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:frontend/pages/userInfo.dart';
@@ -7,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:frontend/components/Appbar.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:intl/intl.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  
+  Map js;
   
   final GlobalKey<DashChatState> _chatViewKey = GlobalKey<DashChatState>();
   ChatUser user;
@@ -48,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState(){
 
     super.initState();
-    new Future<ChatUser>.delayed(new Duration(seconds: 1), () async{
+    new Future<List>.delayed(new Duration(seconds: 1), () async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var pno = prefs.getString('auth_no');
     Map js = await userInfo(pno);
@@ -61,13 +62,14 @@ class _ChatScreenState extends State<ChatScreen> {
       containerColor: Colors.redAccent,
       avatar: (js['patient_dp']==null)?"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d":js['patient_dp'],
     );
-    
-    return userx;
-    }).then((ChatUser userx) {
+    return [userx,js];
+    }).then((List list) {
       setState(() {
-        user = userx;
-        pno= userx.uid;
+        user = list[0];
+        pno= list[0].uid;
+        js = list[1];
         isLoading = false;
+        
       });
     });
     
@@ -103,43 +105,54 @@ class _ChatScreenState extends State<ChatScreen> {
       Timer(Duration(milliseconds: 600), () {
         systemMessage();
       });
-    } else {
+    }
+    else {
       systemMessage();
     } 
     if(detect_url==''){
       print(pno);
       final url = 'https://memorai.herokuapp.com/api/chatbot/' + pno+'/'+ message.text;
-      
+      print(js['patient_location']['lat']);
       var answer = await http.get(url);
       var obj = (jsonDecode(answer.body));
       var chatResponse = obj['chat_response'];
-      final botReply = ChatMessage(
-            text: chatResponse,
+      if(chatResponse == 'Open the maps')
+      {
+        var lat = (js['patient_location']['loc']);
+        var lon = (js['patient_location']['lat']);
+        assert(lat is double);
+        assert(lon is double);
+        MapsLauncher.launchCoordinates(lat,lon);
+      }
+        final botReply = ChatMessage(
+              text: chatResponse,
+              createdAt: DateTime.now(),
+              user: bot);
+        setState(() {
+          messages = [...messages,botReply];
+          print(messages.length);
+        });
+
+        if ( i == 0) {
+          systemMessage();
+          Timer(Duration(milliseconds: 600), () {
+            systemMessage();
+          });
+        } 
+        else {
+          systemMessage();
+          } 
+        
+      }
+    else{
+        final message = ChatMessage(
+            text: 'hmm...let me see',
             createdAt: DateTime.now(),
             user: bot);
-      setState(() {
-        messages = [...messages,botReply];
+        setState(() {
+        messages = [...messages,message];
         print(messages.length);
       });
-
-      if ( i == 0) {
-        systemMessage();
-        Timer(Duration(milliseconds: 600), () {
-          systemMessage();
-        });
-      } else {
-        systemMessage();
-      } 
-    }
-    else{
-      final message = ChatMessage(
-          text: 'hmm...let me see',
-          createdAt: DateTime.now(),
-          user: bot);
-      setState(() {
-      messages = [...messages,message];
-      print(messages.length);
-    });
       print("Goinf into call");
       String person = '';
       try{

@@ -184,6 +184,8 @@ def chatbot(number,message):
             chat_response = "Your reminders/schedule is:\n" + str_reminder
     elif intent == "identify_person":
         chat_response = 'hmm..let me check.Send me a picture of the person.'
+    elif intent == "guide_me":
+        chat_response = 'Open the maps'
     elif sentiment == 'negative':
         chat_response = 'Oh no :( Things are going to get better. Wanna talk to someone?'
 
